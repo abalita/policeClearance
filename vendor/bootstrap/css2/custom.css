@@ -1,0 +1,112 @@
+body {
+	background:#e7ebf2;
+}
+
+.fb {
+	background: #435e9c;
+	color:white; 
+	height:315px; 
+}
+
+
+.line {outline:1px solid black;}
+
+.profilePhoto {
+	background:url('https://fbcdn-sphotos-g-a.akamaihd.net/hphotos-ak-snc7/424403_428374530565966_1323885252_n.jpg');
+	border:3px solid lightgrey;
+	display: block;
+	left: 20px;
+	margin-top: 200px;
+	padding: 1px;
+	width:160px;
+	height:160px;
+	position: relative;
+	-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+}
+
+@media screen and (max-width: 1200px) {
+.profilePhoto {
+	
+	display:none;
+
+}
+}
+
+
+.panel {
+	height:168px;
+	background:white;
+	color:black;
+}
+
+.name {
+	color: #1c2a47;
+	font-size: 22px;
+	font-weight: bold;
+
+}
+
+.push {
+	margin-top:18px;
+	padding-bottom:10px;
+}
+
+.pushLeft {
+	margin-left:15px;
+}
+
+.panelButton {
+
+border: 1px solid #a5a5a5;
+font-size:15px;
+font-weight: bold;
+border-radius:3px;
+-webkit-border-radius: 3px;
+-webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, .1);
+padding:2px;
+text-align: center;
+
+}
+
+.details {
+	height:75px;
+	background: #f1f3f8;
+	border:1px solid lightgrey;
+	border-left:none;
+	-webkit-border-top-right-radius: 5px;
+	-moz-border-top-right-radius: 5px;
+	border-top-right-radius: 5px;
+	-webkit-border-bottom-right-radius: 5px;
+	-moz-border-bottom-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+
+}
+
+.details p  {
+	margin-top:6px;
+	margin-left:40px;
+	font-size:12px;
+	line-height: 8px;
+}
+
+.navi {
+	width:100%;
+	background:#08c;
+	height:40px;
+	margin-bottom:2px;
+	border-bottom:1px solid black;
+	text-align:center;
+	color:white;
+	line-height: 40px;
+	font-size: 20px;
+}
+
+.label {
+	padding:5px;
+}
+
+
+
+

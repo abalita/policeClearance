@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Police Clearance</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/agency.min.css" rel="stylesheet">
+        <style>
+            .title-border{
+		width: 100%; 
+		height: 15px; 
+		border-bottom: 1px solid black; 
+		text-align: center;
+		margin-top: 5px;
+		margin-bottom: 30px;
+            }
+            .title-text{
+                font-size: 20px; 
+                color: #0000FF;
+                background-color: #fff; 
+                padding: 0 10px;
+            }
+        </style>
+    </head>
+    <body>
+        
+        <nav class='navbar navbar-inverse'>
+            <div class='container-fluid'>
+                <div class='navbar-header'>
+                    <a href="#dashboard" class='navbar-brand'><b>POLICE CLEARANCE</b></a>
+                    <button class='navbar-toggle' data-toggle='collapse' data-target='#mainNavBar'>
+                        <span class='icon-bar'></span>
+                        <span class='icon-bar'></span>
+                        <span class='icon-bar'></span>
+                    </button>
+                </div>
+                
+                <div class='collapse navbar-collapse' id="mainNavBar">
+                    <ul class='nav navbar-nav'>
+                        <li class='dropdown'>
+                            <a href="#" class="dropdown-toggle" data-toggle='dropdown'>APPLICATION <span class="caret"></span></a>
+                            <ul class='dropdown-menu'>
+                                <li><a href="#dashboard" class="list-group-item">View Application</a></li>
+                                <li><a href="#newApp" class="list-group-item">Apply for Clearance</a></li>
+                                <li><a href="#renewApp" class="list-group-item">Renew</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#transaction">TRANSACTION</a></li>
+                        <li><a href="#contact">CONTACT</a></li>
+                    </ul>
+                    
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#">LOGOUT</a></li>
+                    </ul>
+                </div>
+                
+            </div>
+        </nav>
+        
+        <div class="container">
+            <div class="row">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="text-center text-uppercase text-primary">EDIT APPLICATION</h1>
+                    </div>
+                    <form action="" method="post">
+                        <div class="modal-body">
+                            <div class="col-lg-12">
+                                <div class="title-border">
+                                    <span class="title-text">Applicant Information</span>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="userFirstName">First Name</label>
+                                            <input type="text" class="form-control" required="" name="userFirstName" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="userMiddleName">Middle Name</label>
+                                            <input type="text" class="form-control" required="" name="userMiddleName" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="userLastName">Last Name</label>
+                                            <input type="text" class="form-control" required="" name="userLastName" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="userSuffix">Suffix</label>
+                                            <input type="text" class="form-control" required="" name="userSuffix" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="userBirthDate">Birth Date</label>
+                                            <input type="text" class="form-control" required="" name="userBirthDate" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="userBirthPlace">Birth Place</label>
+                                            <input type="text" class="form-control" required="" name="userBirthPlace" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="userNickname">Nickname</label>
+                                            <input type="text" class="form-control" required="" name="userNickname" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="userGender">Gender</label>
+                                            <select class="form-control" id="userGender">
+                                                <option></option>
+                                                <option>Male</option>
+                                                <option>Female</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="userCivilStatus">Civil Status</label>
+                                            <input type="text" class="form-control" required="" name="userCivilStatus" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="userCitizenship">Citizenship</label>
+                                            <input type="text" class="form-control" required="" name="userCitizenship" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <!--Applicant Info-->
+                            
+                            <div class="col-lg-12">
+                                <div class="title-border">
+                                    <span class="title-text">Contact Information</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="userAddress">Address</label>
+                                    <input type="text" class="form-control" required="" name="userAddress" value="">
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="userContactNo">Contact No.</label>
+                                            <input type="text" class="form-control" required="" name="userContactNo" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="userEmailAddress">Email Address</label>
+                                            <input type="text" class="form-control" required="" name="userEmailAddress" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <!--Contact Info-->
+                            
+                            <div class="col-lg-12">
+                                <div class="title-border">
+                                    <span class="title-text">Family Background</span>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="userSpouseName">Spouse Name</label>
+                                            <input type="text" class="form-control" required="" name="userSpouseName" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="userSpouseBplace">Birth Place</label>
+                                            <input type="text" class="form-control" required="" name="userSpouseBplace" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="userFatherName">Father Name</label>
+                                            <input type="text" class="form-control" required="" name="userFatherName" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="userFatherBplace">Birth Place</label>
+                                            <input type="text" class="form-control" required="" name="userFatherBplace" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="userMotherName">Mother Name</label>
+                                            <input type="text" class="form-control" required="" name="userMotherName" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="userMotherBplace">Birth Place</label>
+                                            <input type="text" class="form-control" required="" name="userMotherBplace" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <!--Family Background-->
+                            
+                            <div class="col-lg-12">
+                                <div class="title-border">
+                                    <span class="title-text">Other Information</span>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="userEducAttain">Educational Attainment</label>
+                                            <select class="form-control" id="userEducAttain">
+                                                <option></option>
+                                                <option>COLLEGE GRADUATE</option>
+                                                <option>VOCATIONAL</option>
+                                                <option>COLLEGE LEVEL</option>
+                                                <option>HIGH SCHOOL GRADUATE</option>
+                                                <option>HIGH SCHOOL LEVEL</option>
+                                                <option>ELEMENTARY GRADUATE</option>
+                                                <option>MASTERAL</option>
+                                                <option>DOCTORAL</option>>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="userOccupation">Occupation</label>
+                                            <input type="text" class="form-control" required="" name="userOccupation" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="userReligion">Religion</label>
+                                            <select class="form-control" id="userReligion">
+                                                <option></option>
+                                                <option>Roman Catholic</option>
+                                                <option>Born Again</option>
+                                                <option>Islam</option>
+                                                <option>Evangelical</option>
+                                                <option>Iglesia Ni Cristo</option>
+                                                <option>Jehovah's Witnesses</option>
+                                                <option>Protestant</option>
+                                                <option>Seventh-day Adventist</option>
+                                                <option>Baptist</option>
+                                                <option>Buddhist</option>
+                                                <option>Aglipayan</option>
+                                                <option>Pentecost</option>
+                                                <option>United Methodist</option>
+                                                <option>Bible Methodist</option>
+                                                <option>Church of Christ</option>
+                                                <option>Latter Day Saint</option>
+                                                <option>Jesus Miracle Crusade</option>
+                                                <option>Other</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="userHeight">Height</label>
+                                            <input type="text" class="form-control" required="" name="userHeight" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="userWeight">Weight</label>
+                                            <input type="text" class="form-control" required="" name="userWeight" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="userIdMarks">Identifying Marks</label>
+                                            <input type="text" class="form-control" required="" name="userIdMarks" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <!--Other Info-->
+                        </div>
+                        <div class="modal-footer">
+                            <input type="hidden" name="isEmpty" value="">
+                            <button type="button" name="submit" value="newAccount" class="btn btn-success btn-icon"><i class="fa fa-check"></i> SAVE INFORMATION</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+    </body>
+</html>
