@@ -11,10 +11,11 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="css/agency.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="css/sidebar.css">
+        <link rel="stylesheet" href="css/sidebarmenu.css">
         <style>
             .user-name{
                 font-size: 50px;
+                padding: 20px;
             }
             .title-border{
 		width: 100%; 
@@ -30,127 +31,82 @@ and open the template in the editor.
                 padding: 0 10px;
             }
             .text-right{
-		padding: 5px;
+		padding: 6px;
             }
             .text-bold{
                 font-size: 21px;
 		font-family: arial;
             }
+            .text-status{
+                font-size: 80px;
+                font-family: Verdana;
+                text-align: center;
+            }
+            #transNoText{
+                color: red;
+                font-size: 50px;
+                margin: auto;
+                padding: auto;
+            }
+            .no-border{
+                border: none;
+                width: 100%;
+            }
+            #tempUserName{
+                font-style: italic;
+                font-size: 50px;
+                padding: 20px;
+                color: #737373;
+                font-family: Verdana;
+            }
         </style>
     </head>
     <body>
-        <div class="nav-side-menu">
-            <div class="brand">Brand Logo</div>
-            <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
-
-                <div class="menu-list">
-
-                    <ul id="menu-content" class="menu-content collapse out">
-                        <li>
-                          <a href="#">
-                          <i class="fa fa-dashboard fa-lg"></i> Dashboard
-                          </a>
-                        </li>
-
-                        <li  data-toggle="collapse" data-target="#products" class="collapsed active">
-                            <a href="#"><i class="fa fa-gift fa-lg"></i> UI Elements <span class="arrow"></span></a>
-                            <ul class="sub-menu collapse" id="products">
-                                <li class="active"><a href="#">CSS3 Animation</a></li>
-                                <li><a href="#">General</a></li>
-                                <li><a href="#">Buttons</a></li>
-                                <li><a href="#">Tabs & Accordions</a></li>
-                                <li><a href="#">Typography</a></li>
-                                <li><a href="#">FontAwesome</a></li>
-                                <li><a href="#">Slider</a></li>
-                                <li><a href="#">Panels</a></li>
-                                <li><a href="#">Widgets</a></li>
-                                <li><a href="#">Bootstrap Model</a></li>
-                            </ul>
-                        </li>
-                        
-
-
-                        <li data-toggle="collapse" data-target="#service" class="collapsed">
-                            <a href="#"><i class="fa fa-globe fa-lg"></i> Services <span class="arrow"></span></a>
-                            <ul class="sub-menu collapse" id="service">
-                              <li>New Service 1</li>
-                              <li>New Service 2</li>
-                              <li>New Service 3</li>
-                            </ul>
-                        </li>  
-                        
-
-
-                        <li data-toggle="collapse" data-target="#new" class="collapsed">
-                            <a href="#"><i class="fa fa-car fa-lg"></i> New <span class="arrow"></span></a>
-                            <ul class="sub-menu collapse" id="new">
-                                <li>New New 1</li>
-                                <li>New New 2</li>
-                                <li>New New 3</li>
-                              </ul>
-                        </li>
-                        
-
-
-                         <li>
-                          <a href="#">
-                          <i class="fa fa-user fa-lg"></i> Profile
-                          </a>
-                          </li>
-
-                         <li>
-                          <a href="#">
-                          <i class="fa fa-users fa-lg"></i> Users
-                          </a>
-                        </li>
-                    </ul>
-             </div>
-        </div>
-        <!--
-        <nav class='navbar navbar-inverse'>
-            <div class='container-fluid'>
-                <div class='navbar-header'>
-                    <a href="#dashboard" class='navbar-brand'><b>POLICE CLEARANCE</b></a>
-                    <button class='navbar-toggle' data-toggle='collapse' data-target='#mainNavBar'>
-                        <span class='icon-bar'></span>
-                        <span class='icon-bar'></span>
-                        <span class='icon-bar'></span>
-                    </button>
+        <nav class="navbar navbar-default sidebar" role="navigation" style="z-index: 1;position: fixed;">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>      
                 </div>
-                
-                <div class='collapse navbar-collapse' id="mainNavBar">
-                    <ul class='nav navbar-nav'>
-                        <li class='dropdown'>
-                            <a href="#" class="dropdown-toggle" data-toggle='dropdown'>APPLICATION <span class="caret"></span></a>
-                            <ul class='dropdown-menu'>
-                                <li><a href="#dashboard" class="list-group-item">View Application</a></li>
-                                <li><a href="#newApp" class="list-group-item">Apply for Clearance</a></li>
-                                <li><a href="#renewApp" class="list-group-item">Renew</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#transaction">TRANSACTION</a></li>
-                        <li><a href="#contact">CONTACT</a></li>
-                    </ul>
-                    
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">LOGOUT</a></li>
-                    </ul>
+                <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
+                  <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">APPLICATION <span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-book"></span></a>
+                      <ul class="dropdown-menu forAnimate" role="menu">
+                        <li><a href="dashboard.html">View Application</a></li>
+                        <li><a href="#" data-toggle="modal" data-target="#checkStatus" id="applyClearanceBtn">Apply for Clearance</a></li>
+                        <li><a href="edit_clearance_form.html">Edit Information</a></li>
+                      </ul>
+                    </li>          
+                    <li ><a href="#">Transaction<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-euro"></span></a></li>        
+                    <li ><a href="#">Contact Us<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-comment"></span></a></li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">ACCOUNT <span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
+                      <ul class="dropdown-menu forAnimate" role="menu">
+                        <li><a href="dashboard.html">Change Password</a></li>
+                        <li><a href="index.html">Logout</a></li>
+                      </ul>
+                    </li>  
+                  </ul>
                 </div>
-                
             </div>
-        </nav>-->
+        </nav>
         
         <section id="application">
             <div class="container">
-                <div class="row">
-                    <button type="button" name="edit" id="editProfile" value="" class="btn btn-success btn-icon ">EDIT MY PROFILE</button>
+                <div class="col-md-12">
                     <div class="modal-content">
                         <div class="modal-header">
                             <div class="col-lg-3">
-                                <img class="img-circle img-responsive" src="img/sample-user.jpg" width="200" height="200" style="margin-top:-100px;margin-left: 10px;border: 1px solid;">
+                                <img class="img-responsive" src="img/sample-user.jpg" width="200" height="200">
                             </div>
                             <div class="col-lg-9 text-center text">
-                                <h1 class="user-name">Mark Jhon Paul G. Quijom</h1>
+                                <span id="tempUserName">User Name</span>
+                                <span class="user-name text-capitalize" id="userName"></span>
                             </div>
                         </div>
                         <div class="modal-body">
@@ -165,86 +121,86 @@ and open the template in the editor.
                                         <div class="col-md-3 text-right bg-success">
                                             First Name:
                                         </div>
-                                        <div class="col-md-9 bg-info">
-                                            <span class="text-bold text-uppercase">Mark Jhon Paul</span>
+                                        <div class="col-md-9 bg-success">
+                                            <input class="text-bold text-uppercase no-border bg-success" placeholder="First Name" id="fname" type="text" readonly>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-3 text-right bg-info">
                                             Middle Name:
                                         </div>
-                                        <div class="col-md-9 bg-success">
-                                            <span class="text-bold text-uppercase">Garcia</span>
+                                        <div class="col-md-9 bg-info">
+                                            <input class="text-bold text-uppercase no-border bg-info" placeholder="middle name" id="mname" type="text" readonly>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-3 text-right bg-success">
                                             Last Name:
                                         </div>
-                                        <div class="col-md-9 bg-info">
-                                            <span class="text-bold text-uppercase">Quijom</span>
+                                        <div class="col-md-9 bg-success">
+                                            <input class="text-bold text-uppercase no-border bg-success" placeholder="last name" id="lname" type="text" readonly>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-3 text-right bg-info">
                                             Suffix:
                                         </div>
-                                        <div class="col-md-9 bg-success">
-                                            <span class="text-bold text-uppercase">Jr.</span>
+                                        <div class="col-md-9 bg-info">
+                                            <input class="text-bold text-uppercase bg-info no-border bg-info" placeholder="Suffix" id="sname" type="text" readonly>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-3 text-right bg-success">
                                             Birth Date:
                                         </div>
-                                        <div class="col-md-9 bg-info">
-                                            <span class="text-bold text-uppercase">May 25, 1995</span>
+                                        <div class="col-md-9 bg-success">
+                                            <input type="text" readonly class="text-bold text-uppercase no-border bg-success" placeholder="Birth Date" id="bdate">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-3 text-right bg-info">
                                             Birth Place:
                                         </div>
-                                        <div class="col-md-9 bg-success">
-                                            <span class="text-bold text-uppercase">Kalookan City</span>
+                                        <div class="col-md-9 bg-info">
+                                            <input type="text" readonly class="text-bold text-uppercase no-border bg-info" placeholder="Birth Place" id="bplace">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-3 text-right bg-success">
                                             Nickname:
                                         </div>
-                                        <div class="col-md-9 bg-info">
-                                            <span class="text-bold text-uppercase">Mark, Mjp</span>
+                                        <div class="col-md-9 bg-success">
+                                            <input type="text" readonly class="text-bold text-uppercase no-border bg-success" placeholder="Nickname" id="nname">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-3 text-right bg-info">
                                             Gender:
                                         </div>
-                                        <div class="col-md-9 bg-success">
-                                            <span class="text-bold text-uppercase">Male</span>
+                                        <div class="col-md-9 bg-info">
+                                            <input type="text" readonly class="text-bold text-uppercase no-border bg-info" placeholder="Gender" id="gender">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-3 text-right bg-success">
                                             Civil Status:
                                         </div>
-                                        <div class="col-md-9 bg-info">
-                                            <span class="text-bold text-uppercase">Single</span>
+                                        <div class="col-md-9 bg-success">
+                                            <input type="text" readonly class="text-bold text-uppercase no-border bg-success" placeholder="Civil Status" id="cstatus">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-3 text-right bg-info">
                                             Citizenship:
                                         </div>
-                                        <div class="col-md-9 bg-success">
-                                            <span class="text-bold text-uppercase">Filipino</span>
+                                        <div class="col-md-9 bg-info">
+                                            <input type="text" readonly class="text-bold text-uppercase no-border bg-info" placeholder="Citizenship" id="citizenship">
                                         </div>
                                     </div>
                                 </div> <!--Applicant Info-->
-                                
+
                                 <div class="col-md-12">
-                                    <div class="title-border bg-warning">
+                                    <div class="title-border">
                                         <span class="title-text">
                                             Contact Information
                                         </span>
@@ -253,28 +209,28 @@ and open the template in the editor.
                                         <div class="col-md-3 text-right bg-success">
                                             Address:
                                         </div>
-                                        <div class="col-md-9 bg-info">
-                                            <span class="text-bold text-uppercase">Blk 3 Lot 7 Sta Isabel St. Gulod Novaliches Quezon City</span>
+                                        <div class="col-md-9 bg-success">
+                                            <input type="text" readonly placeholder="Address" class="text-bold text-uppercase no-border bg-success" id="address">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-3 text-right bg-info">
                                             Contact No.:
                                         </div>
-                                        <div class="col-md-9 bg-success">
-                                            <span class="text-bold text-uppercase">09463773777 / 417-6780</span>
+                                        <div class="col-md-9 bg-info">
+                                            <input type="text" readonly placeholder="Contact Number" class="text-bold text-uppercase no-border bg-info" id="contact">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-3 text-right bg-success">
                                             Email Address:
                                         </div>
-                                        <div class="col-md-9 bg-info">
-                                            <span class="text-bold text-uppercase">markjhonpaul.quijom@gmail.com</span>
+                                        <div class="col-md-9 bg-success">
+                                            <input type="text" readonly placeholder="Email Address" class="text-bold text-uppercase no-border bg-success" id="emailaddress">
                                         </div>
                                     </div>
                                 </div> <!--Contact Info-->
-                                
+
                                 <div class="col-md-12">
                                     <div class="title-border">
                                         <span class="title-text">
@@ -285,52 +241,52 @@ and open the template in the editor.
                                         <div class="col-md-3 text-right bg-success">
                                             Spouse Name:
                                         </div>
-                                        <div class="col-md-9 bg-info">
-                                            <span class="text-bold text-uppercase">N/A</span>
+                                        <div class="col-md-9 bg-success">
+                                            <input type="text" readonly placeholder="Spouse Name" class="text-bold text-uppercase no-border bg-success" id="spousename">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-3 text-right bg-info">
                                             Spouse Birth Place:
                                         </div>
-                                        <div class="col-md-9 bg-success">
-                                            <span class="text-bold text-uppercase">N/A</span>
+                                        <div class="col-md-9 bg-info">
+                                            <input type="text" readonly placeholder="Spouse Birth Place" class="text-bold text-uppercase no-border bg-info" id="spousebplace">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-3 text-right bg-success">
                                             Father Name:
                                         </div>
-                                        <div class="col-md-9 bg-info">
-                                            <span class="text-bold text-uppercase">Jesus R. Quijom</span>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-3 text-right bg-success">
-                                            Father Birth Place:
-                                        </div>
-                                        <div class="col-md-9 bg-info">
-                                            <span class="text-bold text-uppercase">Ilocos, Vigan City</span>
+                                        <div class="col-md-9 bg-success">
+                                            <input type="text" readonly placeholder="Father Name" class="text-bold text-uppercase no-border bg-success" id="fathername">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-3 text-right bg-info">
-                                            Mother Name:
+                                            Father Birth Place:
                                         </div>
-                                        <div class="col-md-9 bg-success">
-                                            <span class="text-bold text-uppercase">Madeline G. Quijom</span>
+                                        <div class="col-md-9 bg-info">
+                                            <input type="text" readonly placeholder="Father Birth Place" class="text-bold text-uppercase no-border bg-info" id="fatherbplace">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-3 text-right bg-success">
+                                            Mother Name:
+                                        </div>
+                                        <div class="col-md-9 bg-success">
+                                            <input type="text" readonly placeholder="Mother Name" class="text-bold text-uppercase no-border bg-success" id="mothername">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3 text-right bg-info">
                                             Mother Birth Place:
                                         </div>
                                         <div class="col-md-9 bg-info">
-                                            <span class="text-bold text-uppercase">Ilocos, Bulag Centro</span>
+                                            <input type="text" readonly placeholder="Mother Birth Place" class="text-bold text-uppercase no-border bg-info" id="motherbplace">
                                         </div>
                                     </div>
                                 </div> <!--Family Background-->
-                                
+
                                 <div class="col-md-12">
                                     <div class="title-border">
                                         <span class="title-text">
@@ -341,62 +297,288 @@ and open the template in the editor.
                                         <div class="col-md-3 text-right bg-success">
                                             Educational Attainment:
                                         </div>
-                                        <div class="col-md-9 bg-info">
-                                            <span class="text-bold text-uppercase"></span>
+                                        <div class="col-md-9 bg-success">
+                                            <input type="text" readonly placeholder="Educational Attainment" class="text-bold text-uppercase no-border bg-success" id="educattain">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-3 text-right bg-info">
                                             Occupation:
                                         </div>
-                                        <div class="col-md-9 bg-success">
-                                            <span class="text-bold text-uppercase"></span>
+                                        <div class="col-md-9 bg-info">
+                                            <input type="text" readonly placeholder="Occupation" class="text-bold text-uppercase no-border bg-info" id="occupation">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-3 text-right bg-success">
                                             Religion:
                                         </div>
-                                        <div class="col-md-9 bg-info">
-                                            <span class="text-bold text-uppercase"></span>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-3 text-right bg-success">
-                                            Height:
-                                        </div>
-                                        <div class="col-md-9 bg-info">
-                                            <span class="text-bold text-uppercase"></span>
+                                        <div class="col-md-9 bg-success">
+                                            <input type="text" readonly placeholder="Religion" class="text-bold text-uppercase no-border bg-success" id="religion">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-3 text-right bg-info">
-                                            Weight:
+                                            Height:
                                         </div>
-                                        <div class="col-md-9 bg-success">
-                                            <span class="text-bold text-uppercase"></span>
+                                        <div class="col-md-9 bg-info">
+                                            <input type="text" readonly placeholder="Height" class="text-bold text-uppercase no-border bg-info" id="userHeight">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-3 text-right bg-success">
+                                            Weight:
+                                        </div>
+                                        <div class="col-md-9 bg-success">
+                                            <input type="text" readonly placeholder="Weight" class="text-bold text-uppercase no-border bg-success" id="userWeight">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3 text-right bg-info">
                                             Identifying Marks:
                                         </div>
                                         <div class="col-md-9 bg-info">
-                                            <span class="text-bold text-uppercase"></span>
+                                            <input type="text" readonly placeholder="Identifying Marks" class="text-bold text-uppercase no-border bg-info" id="idMark">
                                         </div>
                                     </div>
                                 </div> <!--Other Info-->
                             </div>
                         </div> 
-                        
+
                     </div>
                 </div>
             </div>
         </section>
         
+        <!--Apply for clearance-->
+        <!--STATUS-->
+        <div class="modal fade" id="checkStatus">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <span id="tempText">Please Fill up all the fields first.</span>
+                        <h1 class="text-status" id="clearStatus"></h1>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#applyClearance" data-dismiss="modal">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!--Apply MODAL-->
+        <div class="modal fade" id="applyClearance">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    
+                    <!--STATUS HIT-->
+                    <div id="statusHit" style="display: none;">
+                        <div class="modal-header">
+                            <button class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body" id="statusBody">
+                            <h1 class="text-center">Please proceed to our office.</h1>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-info" data-dismiss="modal">OK</button>
+                        </div>
+                    </div>
+                    
+                    <!--STATUS NO HIT-->
+                    <div id="statusNoHit" style="display: none;">
+                        <div class="modal-header">
+                            <button class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <form action="#" method="GET">
+                            <div class="modal-body" id="statusBody">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label for="purpose">Purpose:</label>
+                                            <select class="form-control" name="purpose" id="purpose" required="">
+                                                <option></option>
+                                                <option>LOCAL</option>
+                                                <option>ABROAD</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="form-group">
+                                            <label for="typePurpose">Type of Purpose:</label>
+                                            <select class="form-control" name="typePurpose" id="typePurpose" required="">
+                                                <option></option>
+                                                <option>Local Employment</option>
+                                                <option>BLA BLA1</option>
+                                                <option>BLA BLA2</option>
+                                                <option>BLA BLA3</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <input type="hidden" name="isEmpty" value="">
+                                <button type="button" class="btn btn-success"  data-toggle="modal" data-target="#transactModal" data-dismiss="modal">PROCEED</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!--TRANSACT MODAL-->
+        <div class="modal fade" id="transactModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td class="text-bold text-center">TRANSACTION NO.</td>
+                                </tr>
+                                <tr>
+                                    <td id="transNoText" class="text-center">#AOQLX6101240</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Price: <b> &Rcy; <span id="transNoPrice">150.00</span></b>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td>
+                                        <span class="text-success bg-success">NOTE: Please proceed to the nearest EC PAY.</span>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-info" data-dismiss="modal" id="transactBtn">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         
         <script src="js/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
+        <script>
+            
+            /*Apply for Clearance*/
+            var applyClearanceBtn = document.getElementById('applyClearanceBtn');
+            var clearStatus = document.getElementById('clearStatus');
+            var userName = document.getElementById('userName');
+            var statusBody = document.getElementById('statusBody');
+            var statusHit = document.getElementById('statusHit');
+            var statusNoHit = document.getElementById('statusNoHit');
+            var transactBtn = document.getElementById('transactBtn');
+            var tempText = document.getElementById('tempText');
+            
+            transactBtn.onclick = function(){
+                window.location = 'transaction.html';
+            }
+            
+            applyClearanceBtn.onclick = function(){
+                if(userName.innerHTML == 'Mark Jhon Paul Garcia Quijom' || userName.innerHTML == 'Ariel Alfonso Balita' && userName.innerHTML != ''){
+                    tempText.style.display = 'none';
+                    clearStatus.innerHTML = 'HIT!';
+                    clearStatus.style.color = 'red';
+                    statusHit.style.display = 'block';
+                    statusNoHit.style.display = 'none';
+                } else if(userName.innerHTML != ''){
+                    tempText.style.display = 'none';
+                    clearStatus.innerHTML = 'NO HIT!';
+                    clearStatus.style.color = 'blue';
+                    statusHit.style.display = 'none';
+                    statusNoHit.style.display = 'block';
+                }
+            }
+            
+            /*Get Info*/
+            
+            var fname = document.getElementById('fname');
+            var mname = document.getElementById('mname');
+            var lname = document.getElementById('lname');
+            var sname = document.getElementById('sname');
+            var bdate = document.getElementById('bdate');
+            var bplace = document.getElementById('bplace');
+            var nname = document.getElementById('nname');
+            var gender = document.getElementById('gender');
+            var cstatus = document.getElementById('cstatus');
+            var citizenship = document.getElementById('citizenship');
+            var address = document.getElementById('address');
+            var contact = document.getElementById('contact');
+            var emailaddress = document.getElementById('emailaddress');
+            var spousename = document.getElementById('spousename');
+            var spousebplace = document.getElementById('spousebplace');
+            var fathername = document.getElementById('fathername');
+            var fatherbplace = document.getElementById('fatherbplace');
+            var mothername = document.getElementById('mothername');
+            var motherbplace = document.getElementById('motherbplace');
+            var educattain = document.getElementById('educattain');
+            var occupation = document.getElementById('occupation');
+            var religion = document.getElementById('religion');
+            var userHeight = document.getElementById('userHeight');
+            var userWeight = document.getElementById('userWeight');
+            var idMark = document.getElementById('idMark');
+            var info = [];
+            
+            var parameters = location.search.substring(1).split("&");
+            
+            function loopProcess(){
+                for(var i = 0; i < parameters.length - 1; i++){
+                 processForm(i);   
+                }
+            }
+            
+            function processForm(i){
+              var temp = parameters[i].split("=");
+              var inputValue = temp[1].replace(/\+/g, ' ');
+              info[i] = unescape(inputValue);
+              passInfo();
+            }
+            
+            function passInfo(){
+                userName.innerHTML = info[0] + " " + info[1] + " " + info[2];
+                fname.value = info[0];
+                mname.value = info[1];
+                lname.value = info[2];
+                sname.value = info[3];
+                bdate.value = info[4];
+                bplace.value = info[5];
+                nname.value = info[6];
+                gender.value = info[7];
+                cstatus.value = info[8];
+                citizenship.value = info[9];
+                address.value = info[10];
+                contact.value = info[11];
+                emailaddress.value = info[12];
+                spousename.value = info[13];
+                spousebplace.value = info[14];
+                fathername.value = info[15];
+                fatherbplace.value = info[16];
+                mothername.value = info[17];
+                motherbplace.value = info[18];
+                educattain.value = info[19];
+                occupation.value = info[20];
+                religion.value = info[21];
+                userHeight.value = info[22];
+                userWeight.value = info[23];
+                idMark.value = info[24];
+                
+                if(userName.innerHTML != ""){
+                    tempUserName.style.display = 'none';
+                }
+            }
+            loopProcess();
+        </script>
     </body>
     
 </html>

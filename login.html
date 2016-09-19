@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="json/userinfo.js"></script>
+    </head>
+    <body>
+        <script>
+            
+            var parameters = location.search.substring(1).split("&");
+            var userDetail = [];
+            function loopProcess(){
+                for(var i = 0; i <= parameters.length - 1; i++){
+                 processForm(i);   
+                }
+            }
+            
+            function processForm(i){
+              var temp = parameters[i].split("=");
+              var inputValue = temp[1].replace(/\+/g, ' ');
+              userDetail[i] = unescape(inputValue);
+            }
+            
+            function Login(){
+                for(var i = 0; i < accounts.length; i++){
+                    if(userDetail[0] == accounts[i].email && userDetail[1] == accounts[i].password){
+                        window.location = 'dashboard.html';
+                    }else if(userDetail[0] == info[0] && userDetail[1] == info[1]){
+                        window.location = 'edit_clearance_form.html';
+                    }else{
+                        alert("Invalid Username or Password.");
+                    }
+                }
+            }
+            loopProcess();
+            Login();
+        </script>
+    </body>
+</html>

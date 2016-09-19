@@ -86,22 +86,20 @@
                     <button class="close" data-dismiss="modal">&times;</button>
                     <h2 class="modal-title">LOG IN</h2>
                 </div>
+                <form action="login.html" method="GET">
+                    <div class="modal-body">
+                            <div class="form-group">
+                                <input type="email" class="form-control" placeholder="Email Address" id="userEmail" name="userEmail">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" placeholder="Password" id="userPass" name="userPass">
+                            </div>
+                    </div>
 
-                <div class="modal-body">
-                    <form role="form">
-                        <div class="form-group">
-                            <input type="email" class="form-control" placeholder="Email Address" id="userEmail">
-                        </div>
-                        <div class="form-group">
-                            <input type="password" class="form-control" placeholder="Password" id="userPass">
-                        </div>
-                    </form>
-                </div>
-
-                <div class="modal-footer">
-                    <button id="login-submit" class="btn btn-primary btn-block">Log In</button>
-                </div>
-
+                    <div class="modal-footer">
+                        <input type="submit" id="login-submit" class="btn btn-primary btn-block" value="Log In">
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -165,25 +163,25 @@
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button>
                         <h4 class="modal-title">Ready to Join? Create a New Account</h4>
                     </div>
-                    <form action="" method="post">
+                    <form action="index.html" method="GET">
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="userEmail">Email Address</label>
-                                <input type="text" class="form-control" required="" name="userEmail" value="" id="newUserEmail">
+                                <input type="text" class="form-control" required name="userEmail" value="" id="newUserEmail">
                                 <span class="help-block">Your email address is also used to log in.</span>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="password">Password</label>
-                                        <input type="password" class="form-control" required="" name="password" value="" id="newUserPass">
+                                        <input type="password" class="form-control" required name="password" value="" id="newUserPass">
                                         <span class="help-block">Choose a password for your new account.</span>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="passwordr">Confirm Password</label>
-                                        <input type="password" class="form-control" required="" name="passwordr" value="" id="newConfPass">
+                                        <input type="password" class="form-control" required name="passwordr" value="" id="newConfPass">
                                         <span class="help-block">Type the password again. Passwords must match.</span>
                                     </div>
                                 </div>
@@ -191,7 +189,7 @@
                         </div>
                         <div class="modal-footer">
                             <input type="hidden" name="isEmpty" value="">
-                            <button type="button" name="submit" id="newAcctBtn" value="" class="btn btn-success btn-icon">Create My Account</button>
+                            <input type="submit" name="submit" id="newAcctBtn" value="Create My Account" class="btn btn-success btn-icon">
                         </div>
                     </form>
                 </div>
@@ -372,29 +370,35 @@
     
     <script>
         
+        var parameters = location.search.substring(1).split("&");
+        var info = [];
+        
+        function loopProcess(){
+            for(var i = 0; i < parameters.length - 2; i++){
+             processForm(i);   
+            }
+        }
+
+        function processForm(i){
+          var temp = parameters[i].split("=");
+          var inputValue = temp[1].replace(/\+/g, ' ');
+          info[i] = unescape(inputValue);
+        }
+        loopProcess();
+        
         /*Sign in*/
         var loginBtn = document.getElementById('login-submit');
         var userEmail = document.getElementById('userEmail');
         var userPass = document.getElementById('userPass')
         
-        loginBtn.onclick = function(){Login();}
         userEmail.onkeypress  = function(event) {
             if(event.keyCode == 13){
-                Login();
+                window.location = 'login.html';
             }
         }
         userPass.onkeypress = function(event) {
             if(event.keyCode == 13){
-                Login();
-            }
-        }
-        function Login(){
-            if(userEmail.value == "mark@gmail.com" && userPass.value == "policeclearance"){
-                window.location = 'dashboard.html';
-            }else{
-                alert("Invalid Username or Password.");
-                userEmail.value = "";
-                userPass.value = "";
+                window.location = 'login.html';
             }
         }
         
@@ -409,11 +413,11 @@
             newPass.value = '';
             newConfPass.value = '';
         }
-        
+          
         signupBtn.onclick = function(){
             if(newPass.value == newConfPass.value){
                 alert('Confirmation was send to your email(' +  + ')');
-                resetValueSignUp();
+                
             }else{
                 alert('Password and Confirm Password must be match.');
                 resetValueSignUp();
