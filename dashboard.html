@@ -16,7 +16,6 @@ and open the template in the editor.
         <style>
             .user-name{
                 font-size: 50px;
-                padding: 20px;
             }
             .hr1{
                 width: 100%; 
@@ -46,11 +45,11 @@ and open the template in the editor.
 		font-family: arial;
             }
             .text-status{
-                font-size: 80px;
+                font-size: 24px;
                 font-family: Verdana;
                 text-align: center;
             }
-            #transNoText{
+            .transaction-text{
                 color: red;
                 font-size: 50px;
                 margin: auto;
@@ -85,17 +84,20 @@ and open the template in the editor.
                 margin: 2px;
             }
             .reqField{
-                display: none;
                 color: red;
             }
             .tempDisplay{
                 display: none;
                 font-weight: bold;
                 font-size: 20px;
+                border: 1px solid black;
+            }
+            #chpassTbl tr td{
+                padding: 20px;
             }
         </style>
     </head>
-    <body onload="getUserData();">
+    <body id="pagetop" onload="getUserData();newAcct();applyClicked();">
         <nav class="navbar navbar-default sidebar" role="navigation" style="z-index: 1;position: fixed;top: 0;">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -111,8 +113,8 @@ and open the template in the editor.
                     <li class="dropdown">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown">APPLICATION <span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-book"></span></a>
                       <ul class="dropdown-menu forAnimate" role="menu">
-                          <li><a href="#" onclick="dashboardLink()">View Application</a></li>
-                        <li><a href="#" data-toggle="modal" data-target="#checkStatus" id="applyClearanceBtn">Apply for Clearance</a></li>
+                          <li><a href="#" onclick="newAcct();dashboardLink();">View Application</a></li>
+                          <li><a href="#ApplyClearance" id="applyClearanceBtn">Apply for Clearance</a></li>
                         <li><a href="#" data-toggle="modal" data-target="#editConf">Edit Information</a></li>
                       </ul>
                     </li>          
@@ -121,8 +123,8 @@ and open the template in the editor.
                     <li class="dropdown">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown">ACCOUNT <span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
                       <ul class="dropdown-menu forAnimate" role="menu">
-                        <li><a href="#">Change Password</a></li>
-                        <li><a href="index.html">Logout</a></li>
+                        <li><a href="#chpassModal" onclick="chPass()">Change Password</a></li>
+                        <li><a href="#" onclick="logoutCMD()">Logout</a></li>
                       </ul>
                     </li>  
                   </ul>
@@ -142,8 +144,10 @@ and open the template in the editor.
         <div class="container" style="border: 1px solid; box-shadow: 3px 3px 40px #cccccc;background-color: #eee;padding: 20px;margin-bottom: 20px;">
             <div class="row">
                 <div class="col-lg-3">
-                    <img class="img-responsive" id="profilePicture" src="img/sample-user.jpg" width="200" height="200">
-                    <input type='file' accept='image/*' onchange='openFile(event)'>
+                    <center>
+                        <img class="img-responsive" id="profilePicture" src="img/sample-user.jpg" width="200" height="200">
+                        <input type='file' accept='image/*' onchange='openFile(event)'>
+                    </center>
                 </div>
                 <div class="col-lg-9 text-center">
                     <span id="tempUserName">User Name</span>
@@ -152,257 +156,255 @@ and open the template in the editor.
             </div> <!--Profile Header-->
             <hr class="hr1">
             <div class="col-lg-12" style="border: 2px solid;">
-                <form action="#" method="POST">
-                    <div class="row">
-                        <div class="title-border">
-                            <span class="title-text">
-                                APPLICANT INFORMATION
-                            </span>
-                        </div>
+                <div class="row">
+                    <div class="title-border">
+                        <span class="title-text">
+                            APPLICANT INFORMATION
+                        </span>
+                    </div>
 
-                        <div class="row" style="margin: auto;">
-                            <div class="col-lg-3 form-team">
-                                <div class="form-group">
-                                    <label for="lname">LAST NAME</label><span class="reqField">*</span>
-                                    <input type="text" class="form-control input-team text-uppercase" id="lname" name="lname" readonly>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 form-team">
-                                <div class="form-group">
-                                    <label for="fname">FIRST NAME</label>
-                                    <input type="text" class="form-control input-team text-uppercase" id="fname" name="fname" readonly>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 form-team">
-                                <div class="form-group">
-                                    <label for="mname">MIDDLE NAME</label>
-                                    <input type="text" class="form-control input-team text-uppercase" id="mname" name="mname" readonly>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 form-team">
-                                <div class="form-group">
-                                    <label for="sname">SUFFIX</label>
-                                    <input type="text" class="form-control input-team text-uppercase" id="sname" name="sname" style="width:100px;" readonly>
-                                </div>
+                    <div class="row" style="margin: auto;">
+                        <div class="col-lg-3 form-team">
+                            <div class="form-group">
+                                <label for="lname">LAST NAME</label><span class="reqField">*</span>
+                                <input type="text" class="form-control input-team text-uppercase" id="lname" name="lname" readonly required="">
                             </div>
                         </div>
-
-                        <div class="row" style="margin: auto;">
-                            <div class="col-lg-3 form-team">
-                                <div class="form-group">
-                                    <label for="bdate">BIRTH DATE</label>
-                                    <input type="text" class="form-control input-team text-uppercase" id="bdate" name="bdate" readonly>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 form-team">
-                                <div class="form-group">
-                                    <label for="bplace">BIRTH PLACE</label>
-                                    <input type="text" class="form-control input-team text-uppercase" id="bplace" name="bplace" readonly>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 form-team">
-                                <div class="form-group">
-                                    <label for="nname">NICKNAME</label>
-                                    <input type="text" class="form-control input-team text-uppercase" id="nname" name="nname" readonly>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 form-team">
-                                <div class="form-group">
-                                    <label for="gender">GENDER</label>
-                                    <input id="gender" class="form-control input-team text-uppercase" name="gender" readonly>
-                                    <select class="form-control tempDisplay" id="displayGender" required>
-                                        <option></option>
-                                        <option>MALE</option>
-                                        <option>FEMALE</option>
-                                    </select>
-                                </div>
+                        <div class="col-lg-3 form-team">
+                            <div class="form-group">
+                                <label for="fname">FIRST NAME</label><span class="reqField">*</span>
+                                <input type="text" class="form-control input-team text-uppercase" id="fname" name="fname" readonly required="">
                             </div>
                         </div>
-
-                        <div class="row" style="margin: auto;">
-                            <div class="col-lg-3 form-team">
-                                <div class="form-group">
-                                    <label for="contact">CONTACT NO.</label>
-                                    <input type="text" class="form-control input-team text-uppercase" id="contact" name="contact" readonly>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 form-team">
-                                <div class="form-group">
-                                    <label for="emailaddress">EMAIL ADDRESS</label>
-                                    <input type="text" class="form-control input-team" id="emailaddress" name="emailaddress" readonly>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 form-team">
-                                <div class="form-group">
-                                    <label for="cstatus">CIVIL STATUS</label>
-                                    <input type="text" class="form-control input-team text-uppercase" id="cstatus" name="cstatus" readonly>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 form-team">
-                                <div class="form-group">
-                                    <label for="citizenship">CITIZENSHIP</label>
-                                    <input type="text" class="form-control input-team text-uppercase" id="citizenship" name="citizenship" readonly>
-                                </div>
+                        <div class="col-lg-3 form-team">
+                            <div class="form-group">
+                                <label for="mname">MIDDLE NAME</label><span class="reqField">*</span>
+                                <input type="text" class="form-control input-team text-uppercase" id="mname" name="mname" readonly required="">
                             </div>
                         </div>
-
-                        <div class="row" style="margin: auto;">
-                            <div class="col-lg-6 form-team">
-                                <div class="form-group">
-                                    <label for="spousename">SPOUSE NAME</label>
-                                    <input type="text" class="form-control input-team text-uppercase" id="spousename" name="spousename" readonly>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 form-team">
-                                <div class="form-group">
-                                    <label for="spousebplace">BIRTH PLACE</label>
-                                    <input type="text" class="form-control input-team text-uppercase" id="spousebplace" name="spousebplace" readonly>
-                                </div>
+                        <div class="col-lg-3 form-team">
+                            <div class="form-group">
+                                <label for="sname">SUFFIX</label>
+                                <input type="text" class="form-control input-team text-uppercase" id="sname" name="sname" style="width:100px;" readonly>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="row" style="margin: auto;">
-                            <div class="col-lg-12 form-team">
-                                <div class="form-group">
-                                    <label for="address">ADDRESS</label>
-                                    <input type="text" class="form-control input-team text-uppercase" id="address" name="address" readonly>
-                                </div>
+                    <div class="row" style="margin: auto;">
+                        <div class="col-lg-3 form-team">
+                            <div class="form-group">
+                                <label for="bdate">BIRTH DATE</label><span class="reqField">*</span>
+                                <input type="text" class="form-control input-team text-uppercase" id="bdate" name="bdate" readonly required="">
                             </div>
                         </div>
-
-                    </div> <!--Applicant Info-->
-
-                    <div class="row">
-
-                        <div class="title-border">
-                            <span class="title-text">
-                                FAMILY BACKGROUND
-                            </span>
-                        </div>
-                        <div class="row" style="margin: auto;">
-                            <div class="col-lg-6 form-team">
-                                <div class="form-group">
-                                    <label for="fathername">FATHER NAME</label>
-                                    <input type="text" class="form-control input-team text-uppercase" id="fathername" name="fathername" readonly>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 form-team">
-                                <div class="form-group">
-                                    <label for="fatherbplace">BIRTH PLACE</label>
-                                    <input type="text" class="form-control input-team text-uppercase" id="fatherbplace" name="fatherbplace" readonly>
-                                </div>
+                        <div class="col-lg-3 form-team">
+                            <div class="form-group">
+                                <label for="bplace">BIRTH PLACE</label><span class="reqField">*</span>
+                                <input type="text" class="form-control input-team text-uppercase" id="bplace" name="bplace" readonly required="">
                             </div>
                         </div>
-                        <div class="row" style="margin: auto;">
-                            <div class="col-lg-6 form-team">
-                                <div class="form-group">
-                                    <label for="mothername">MOTHER NAME</label>
-                                    <input type="text" class="form-control input-team text-uppercase" id="mothername" name="mothername" readonly>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 form-team">
-                                <div class="form-group">
-                                    <label for="motherbplace">BIRTH PLACE</label>
-                                    <input type="text" class="form-control input-team text-uppercase" id="motherbplace" name="motherbplace" readonly>
-                                </div>
+                        <div class="col-lg-3 form-team">
+                            <div class="form-group">
+                                <label for="nname">NICKNAME</label>
+                                <input type="text" class="form-control input-team text-uppercase" id="nname" name="nname" readonly>
                             </div>
                         </div>
-                    </div> <!--Family Background-->
-
-                    <div class="row">
-
-                        <div class="title-border">
-                            <span class="title-text">
-                                OTHER INFORMATION
-                            </span>
-                        </div>
-                        <div class="row" style="margin: auto;">
-                            <div class="col-lg-4 form-team">
-                                <div class="form-group">
-                                    <label for="educattain">EDUCATIONAL ATTAINMENT</label>
-                                    <input id="educattain" class="form-control input-team text-uppercase" name="educattain" readonly>
-                                    <select class="form-control tempDisplay" id="displayEducattain">
-                                        <option></option>
-                                        <option>COLLEGE GRADUATE</option>
-                                        <option>VOCATIONAL</option>
-                                        <option>COLLEGE LEVEL</option>
-                                        <option>HIGH SCHOOL GRADUATE</option>
-                                        <option>HIGH SCHOOL LEVEL</option>
-                                        <option>ELEMENTARY GRADUATE</option>
-                                        <option>MASTERAL</option>
-                                        <option>DOCTORAL</option>
-                                        <option>NONE</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 form-team">
-                                <div class="form-group">
-                                    <label for="occupation">OCCUPATION</label>
-                                    <input type="text" class="form-control input-team text-uppercase" id="occupation" name="occupation" readonly>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 form-team">
-                                <div class="form-group">
-                                    <label for="religion">RELIGION</label>
-                                    <input id="religion" class="form-control input-team text-uppercase" name="religion" readonly>
-                                    <select class="form-control tempDisplay" id="displayReligion">
-                                        <option></option>
-                                        <option>Roman Catholic</option>
-                                        <option>Born Again</option>
-                                        <option>Islam</option>
-                                        <option>Evangelical</option>
-                                        <option>Iglesia Ni Cristo</option>
-                                        <option>Jehovah's Witnesses</option>
-                                        <option>Protestant</option>
-                                        <option>Seventh-day Adventist</option>
-                                        <option>Baptist</option>
-                                        <option>Buddhist</option>
-                                        <option>Aglipayan</option>
-                                        <option>Pentecost</option>
-                                        <option>United Methodist</option>
-                                        <option>Bible Methodist</option>
-                                        <option>Church of Christ</option>
-                                        <option>Latter Day Saint</option>
-                                        <option>Jesus Miracle Crusade</option>
-                                        <option>Other</option>
-                                    </select>
-                                </div>
+                        <div class="col-lg-3 form-team">
+                            <div class="form-group">
+                                <label for="gender">GENDER</label><span class="reqField">*</span>
+                                <input id="gender" class="form-control input-team text-uppercase" name="gender" readonly>
+                                <select class="form-control tempDisplay" id="displayGender" required>
+                                    <option></option>
+                                    <option>MALE</option>
+                                    <option>FEMALE</option>
+                                </select>
                             </div>
                         </div>
-                        <div class="row" style="margin: auto;">
-                            <div class="col-lg-4 form-team">
-                                <div class="form-group">
-                                    <label for="userHeight">HEIGHT</label>
-                                    <input type="text" class="form-control input-team text-uppercase" id="userHeight" name="userHeight" style="width: 100px;" readonly>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 form-team">
-                                <div class="form-group">
-                                    <label for="userWeight">WEIGHT</label>
-                                    <input type="text" class="form-control input-team text-uppercase" id="userWeight" name="userWeight" style="width: 100px;" readonly>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 form-team">
-                                <div class="form-group">
-                                    <label for="idMark">IDENTIFYING MARKS</label>
-                                    <input type="text" class="form-control input-team text-uppercase" id="idMark" name="idMark" readonly>
-                                </div>
+                    </div>
+
+                    <div class="row" style="margin: auto;">
+                        <div class="col-lg-3 form-team">
+                            <div class="form-group">
+                                <label for="contact">CONTACT NO.</label><span class="reqField">*</span>
+                                <input type="text" class="form-control input-team text-uppercase" id="contact" name="contact" readonly required="">
                             </div>
                         </div>
-                    </div> <!--Other Info-->
+                        <div class="col-lg-3 form-team">
+                            <div class="form-group">
+                                <label for="emailaddress">EMAIL ADDRESS</label>
+                                <input type="text" class="form-control input-team" id="emailaddress" name="emailaddress" readonly>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 form-team">
+                            <div class="form-group">
+                                <label for="cstatus">CIVIL STATUS</label><span class="reqField">*</span>
+                                <input type="text" class="form-control input-team text-uppercase" id="cstatus" name="cstatus" readonly required="">
+                            </div>
+                        </div>
+                        <div class="col-lg-3 form-team">
+                            <div class="form-group">
+                                <label for="citizenship">CITIZENSHIP</label><span class="reqField">*</span>
+                                <input type="text" class="form-control input-team text-uppercase" id="citizenship" name="citizenship" readonly required="">
+                            </div>
+                        </div>
+                    </div>
 
-                    <div class="row form-footer" id="viewForm">
-                        <input type="button" name="editBtn" value="EDIT INFORMATION" class="btn btn-success btn-icon" style="float: right;" data-toggle="modal" data-target="#editConf"><i class="fa fa-check"></i>
-                    </div> <!--Footer VIEW MODE-->
+                    <div class="row" style="margin: auto;">
+                        <div class="col-lg-6 form-team">
+                            <div class="form-group">
+                                <label for="spousename">SPOUSE NAME</label><span class="reqField">*</span>
+                                <input type="text" class="form-control input-team text-uppercase" id="spousename" name="spousename" readonly required="">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 form-team">
+                            <div class="form-group">
+                                <label for="spousebplace">BIRTH PLACE</label><span class="reqField">*</span>
+                                <input type="text" class="form-control input-team text-uppercase" id="spousebplace" name="spousebplace" readonly required="">
+                            </div>
+                        </div>
+                    </div>
 
-                    <div class="row form-footer" style="display:none;" id="editForm">
-                        <span class="label label-success">Note:</span>
-                        Please fill up all the required fields*.
-                        <input type="hidden" name="isEmpty" value="">
-                        <input type="submit" name="submit" value="SAVE INFORMATION" class="btn btn-success btn-icon" style="float: right;" data-toggle="modal" data-target="#saveConf"><i class="fa fa-check"></i> 
-                        <input type="button" name="cancel" value="CANCEL" class="btn btn-default btn-icon" style="float: right;" data-toggle="modal" data-target="#cancelEditConf">
-                    </div> <!--Footer EDIT MODE-->
-                </form>
+                    <div class="row" style="margin: auto;">
+                        <div class="col-lg-12 form-team">
+                            <div class="form-group">
+                                <label for="address">ADDRESS</label><span class="reqField">*</span>
+                                <input type="text" class="form-control input-team text-uppercase" id="address" name="address" readonly required="">
+                            </div>
+                        </div>
+                    </div>
+
+                </div> <!--Applicant Info-->
+
+                <div class="row">
+
+                    <div class="title-border">
+                        <span class="title-text">
+                            FAMILY BACKGROUND
+                        </span>
+                    </div>
+                    <div class="row" style="margin: auto;">
+                        <div class="col-lg-6 form-team">
+                            <div class="form-group">
+                                <label for="fathername">FATHER NAME</label><span class="reqField">*</span>
+                                <input type="text" class="form-control input-team text-uppercase" id="fathername" name="fathername" readonly required="">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 form-team">
+                            <div class="form-group">
+                                <label for="fatherbplace">BIRTH PLACE</label>
+                                <input type="text" class="form-control input-team text-uppercase" id="fatherbplace" name="fatherbplace" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin: auto;">
+                        <div class="col-lg-6 form-team">
+                            <div class="form-group">
+                                <label for="mothername">MOTHER NAME</label><span class="reqField">*</span>
+                                <input type="text" class="form-control input-team text-uppercase" id="mothername" name="mothername" readonly required="">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 form-team">
+                            <div class="form-group">
+                                <label for="motherbplace">BIRTH PLACE</label>
+                                <input type="text" class="form-control input-team text-uppercase" id="motherbplace" name="motherbplace" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!--Family Background-->
+
+                <div class="row">
+
+                    <div class="title-border">
+                        <span class="title-text">
+                            OTHER INFORMATION
+                        </span>
+                    </div>
+                    <div class="row" style="margin: auto;">
+                        <div class="col-lg-4 form-team">
+                            <div class="form-group">
+                                <label for="educattain">EDUCATIONAL ATTAINMENT</label>
+                                <input id="educattain" class="form-control input-team text-uppercase" name="educattain" readonly>
+                                <select class="form-control tempDisplay" id="displayEducattain">
+                                    <option></option>
+                                    <option>COLLEGE GRADUATE</option>
+                                    <option>VOCATIONAL</option>
+                                    <option>COLLEGE LEVEL</option>
+                                    <option>HIGH SCHOOL GRADUATE</option>
+                                    <option>HIGH SCHOOL LEVEL</option>
+                                    <option>ELEMENTARY GRADUATE</option>
+                                    <option>MASTERAL</option>
+                                    <option>DOCTORAL</option>
+                                    <option>NONE</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 form-team">
+                            <div class="form-group">
+                                <label for="occupation">OCCUPATION</label>
+                                <input type="text" class="form-control input-team text-uppercase" id="occupation" name="occupation" readonly>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 form-team">
+                            <div class="form-group">
+                                <label for="religion">RELIGION</label>
+                                <input id="religion" class="form-control input-team text-uppercase" name="religion" readonly>
+                                <select class="form-control tempDisplay" id="displayReligion">
+                                    <option></option>
+                                    <option>Roman Catholic</option>
+                                    <option>Born Again</option>
+                                    <option>Islam</option>
+                                    <option>Evangelical</option>
+                                    <option>Iglesia Ni Cristo</option>
+                                    <option>Jehovah's Witnesses</option>
+                                    <option>Protestant</option>
+                                    <option>Seventh-day Adventist</option>
+                                    <option>Baptist</option>
+                                    <option>Buddhist</option>
+                                    <option>Aglipayan</option>
+                                    <option>Pentecost</option>
+                                    <option>United Methodist</option>
+                                    <option>Bible Methodist</option>
+                                    <option>Church of Christ</option>
+                                    <option>Latter Day Saint</option>
+                                    <option>Jesus Miracle Crusade</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin: auto;">
+                        <div class="col-lg-4 form-team">
+                            <div class="form-group">
+                                <label for="userHeight">HEIGHT</label>
+                                <input type="text" class="form-control input-team text-uppercase" id="userHeight" name="userHeight" style="width: 100px;" readonly>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 form-team">
+                            <div class="form-group">
+                                <label for="userWeight">WEIGHT</label>
+                                <input type="text" class="form-control input-team text-uppercase" id="userWeight" name="userWeight" style="width: 100px;" readonly>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 form-team">
+                            <div class="form-group">
+                                <label for="idMark">IDENTIFYING MARKS</label>
+                                <input type="text" class="form-control input-team text-uppercase" id="idMark" name="idMark" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!--Other Info-->
+
+                <div class="row form-footer" id="viewForm">
+                    <input type="button" name="editBtn" value="EDIT INFORMATION" class="btn btn-success btn-icon" style="float: right;" data-toggle="modal" data-target="#editConf"><i class="fa fa-check"></i>
+                </div> <!--Footer VIEW MODE-->
+
+                <div class="row form-footer" style="display:none;" id="editForm">
+                    <span class="label label-success">Note:</span>
+                    Please fill up all the required fields*.
+                    <input type="hidden" name="isEmpty" value="">
+                    <input type="submit" name="submit" value="SAVE INFORMATION" class="btn btn-success btn-icon" style="float: right;" data-toggle="modal" data-target="#saveConf"><i class="fa fa-check"></i> 
+                    <input type="button" name="cancel" value="CANCEL" class="btn btn-default btn-icon" style="float: right;" data-toggle="modal" data-target="#cancelEditConf">
+                </div> <!--Footer EDIT MODE-->
             </div>
         </div>
         
@@ -418,7 +420,7 @@ and open the template in the editor.
                         <h5 class="text-bold">Do you want to save your information?</h5>
                     </div>
                     <div class="modal-footer">
-                        <input type="button" name="yesBtn" value="YES" class="btn btn-info btn-icon" onclick="viewMode();window.location='#headerTitle';" data-dismiss="modal">
+                        <input type="button" name="yesBtn" value="YES" class="btn btn-info btn-icon" onclick="viewMode();window.location='#pagetop';location.reload();saveUserData();" data-dismiss="modal">
                         <input type="button" name="noBtn" value="NO" class="btn btn-default btn-icon" data-dismiss="modal">
                     </div>
                 </div>
@@ -437,7 +439,7 @@ and open the template in the editor.
                         <h5 class="text-bold">Do you want to edit your information?</h5>
                     </div>
                     <div class="modal-footer">
-                        <input type="button" name="yesBtn" value="YES" class="btn btn-info btn-icon" onclick="editMode();window.location='#headerTitle';" data-dismiss="modal">
+                        <input type="button" name="yesBtn" value="YES" class="btn btn-info btn-icon" onclick="editMode();window.location='#pagetop';" data-dismiss="modal">
                         <input type="button" name="noBtn" value="NO" class="btn btn-default btn-icon" data-dismiss="modal">
                     </div>
                 </div>
@@ -456,7 +458,7 @@ and open the template in the editor.
                         <h5 class="text-bold">Do you want to cancel editing information?</h5>
                     </div>
                     <div class="modal-footer">
-                        <input type="button" name="yesBtn" value="YES" class="btn btn-info btn-icon" onclick="viewMode();window.location='#headerTitle';" data-dismiss="modal">
+                        <input type="button" name="yesBtn" value="YES" class="btn btn-info btn-icon" onclick="viewMode();window.location='#pagetop';" data-dismiss="modal">
                         <input type="button" name="noBtn" value="NO" class="btn btn-default btn-icon" data-dismiss="modal">
                     </div>
                 </div>
@@ -476,7 +478,7 @@ and open the template in the editor.
                         <h1 class="text-status" id="clearStatus"></h1>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#applyClearance" data-dismiss="modal">OK</button>
+                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#" data-dismiss="modal">OK</button>
                     </div>
                 </div>
             </div>
@@ -486,23 +488,8 @@ and open the template in the editor.
         <div class="modal fade" id="applyClearance">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    
-                    <!--STATUS HIT-->
-                    <div id="statusHit" style="display: none;">
-                        <div class="modal-header">
-                            <b>APPLY FOR CLEARANCE</b>
-                            <button class="close" data-dismiss="modal">&times;</button>
-                        </div>
-                        <div class="modal-body" id="statusBody">
-                            <h1 class="text-center">Please proceed to our office.</h1>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-info" data-dismiss="modal">OK</button>
-                        </div>
-                    </div>
-                    
                     <!--STATUS NO HIT-->
-                    <div id="statusNoHit" style="display: none;">
+                    <div id="statusNoHit">
                         <div class="modal-header">
                             <B>APPLY FOR CLEARANCE</b>
                             <button class="close" data-dismiss="modal">&times;</button>
@@ -536,7 +523,7 @@ and open the template in the editor.
                             </div>
                             <div class="modal-footer">
                                 <input type="hidden" name="isEmpty" value="">
-                                <button type="button" class="btn btn-success"  data-toggle="modal" data-target="#transactModal" data-dismiss="modal">PROCEED</button>
+                                <button type="button" class="btn btn-success"  data-toggle="modal" data-target="#transactModal" data-dismiss="modal" onclick="makeid()">PROCEED</button>
                             </div>
                         </form>
                     </div>
@@ -560,7 +547,7 @@ and open the template in the editor.
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td id="transNoText" class="text-center">#AOQLX6101240</td>
+                                    <td class="text-center transaction-text">#<span id="transNoText"></span></td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -583,9 +570,60 @@ and open the template in the editor.
                 </div>
             </div>
         </div>
+        
+        <!--CHANGE PASSWORD-->
+        <div class="modal fade" id="chpassModal">
+            <div class="modal-dialog" style="max-width: 400px;">
+                <div class="modal-content">
+                    <div class="modal-header bg-info">
+                        CHANGE PASSWORD
+                        <button class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <table id="chpassTbl">
+                            <tr>
+                                <td>Password:</td>
+                                <td><input type="password" id="currentPass" name="currentPass"></td>
+                            </tr> 
+                            <tr>
+                                <td>New Password:</td>
+                                <td><input type="password" id="newPass" name="newPass"></td>
+                            </tr>
+                            <tr>
+                                <td>Confirm New Password:</td>
+                                <td><input type="password" id="confnewPass" name="confnewPass"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><center><input type="button" class="btn btn-block" onclick="chBtn()" value="Change Password"></center></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!--LOGOUT MODAL-->
+        <div class="modal fade" id="logoutModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-info">
+                        CONFIRMATION
+                        <button class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <h3>Are you sure you want to logout?</h3>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="button" name="yesBtn" value="YES" class="btn btn-info btn-icon" onclick="window.location = 'index.html';" data-dismiss="modal">
+                        <input type="button" name="noBtn" value="NO" class="btn btn-default btn-icon" data-dismiss="modal">
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <script>
             var accounts = JSON.parse(localStorage.getItem("accounts"));
+            var accArr;
             
             /*Input Fields*/
             var fname = document.getElementById('fname'),
@@ -625,6 +663,7 @@ and open the template in the editor.
             var statusNoHit = document.getElementById('statusNoHit');
             var tempText = document.getElementById('tempText');
             var dashboardLink = document.getElementById('dashboardLink');
+            var transNoText = document.getElementById('transNoText');
             
             function transactionPage(){
                 window.location = '/PoliceClearanceProject/transaction.html?userid=' + getUserID();
@@ -635,18 +674,14 @@ and open the template in the editor.
             }
             
             applyClearanceBtn.onclick = function(){
-                if(userName.innerHTML == '' || userName.innerHTML == 'Ariel Alfonso Balita' && userName.innerHTML != ''){
+                if(fname.value.toUpperCase() == 'MARK JHON PAUL' || fname.value.toUpperCase() == 'ARIEL'){
+                    $('#checkStatus').modal('show');
                     tempText.style.display = 'none';
-                    clearStatus.innerHTML = 'HIT!';
-                    clearStatus.style.color = 'red';
-                    statusHit.style.display = 'block';
-                    statusNoHit.style.display = 'none';
-                } else if(userName.innerHTML == 'Mark Jhon Paul Garcia Quijom'){
-                    tempText.style.display = 'none';
-                    clearStatus.innerHTML = 'NO HIT!';
-                    clearStatus.style.color = 'blue';
-                    statusHit.style.display = 'none';
-                    statusNoHit.style.display = 'block';
+                    clearStatus.innerHTML = 'Please print your Police Clearance Form and proceed to this police station';
+                } else if(userName.innerHTML == ''){
+                    //nothing happen
+                } else{
+                    $('#applyClearance').modal('show');
                 }
             }
             
@@ -662,6 +697,7 @@ and open the template in the editor.
             function getUserData(){
                 for(var i = 0; i < accounts.length; i++){
                     if(getUserID() == accounts[i].accountid){
+                        accArr = i;
                         fname.value = accounts[i].firstname;
                         mname.value = accounts[i].middlename;
                         lname.value = accounts[i].lastname;
@@ -700,11 +736,30 @@ and open the template in the editor.
                         if(userName.innerHTML != ""){
                             tempUserName.style.display = 'none';
                         }
+                        break;
                     }
                 }
             }
             
-            
+            /*TRANSACTION*/
+            function makeid(){
+                var text = "";
+                var possibleLetter = "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+                    possibleNo = "0123456789";
+
+                for( var i=0; i < 4; i++ ){
+                    text += possibleLetter.charAt(Math.floor(Math.random() * possibleLetter.length));
+                }
+                for( var i=0; i < 4; i++ ){
+                    text += possibleNo.charAt(Math.floor(Math.random() * possibleNo.length));
+                }
+
+                transNoText.innerHTML = text;
+                accounts[accArr].transactionno = text;
+                accounts[accArr].transactiondate = new Date().toDateString();
+                accounts[accArr].transactionstatus = "UNPAID";
+                setAccount();
+            }
             
             /*ADDING IMAGE*/
             var openFile = function(event) {
@@ -736,8 +791,13 @@ and open the template in the editor.
                         displayEducattain.style.display = "block";
                         displayReligion.style.display = "block";
                         displayGender.style.display = "block";
-                    } else{
+                    }else if(a == 9){
+                        //none
+                    }else{
                         inputTeam[a].removeAttribute("readonly");
+                    }
+                    if(inputTeam[a].value == "-"){
+                        inputTeam[a].value = "";
                     }
                 }
                 displayGender.value = inputTeam[7].value;
@@ -769,13 +829,86 @@ and open the template in the editor.
                 
                 viewForm.style.display = 'block';
                 editForm.style.display = 'none';
-                
-                function setAccount(){
-                    localStorage.setItem("accounts", JSON.stringify(accounts));
-                }
-                
-                
             }
+            
+            function setAccount(){
+                localStorage.setItem("accounts", JSON.stringify(accounts));
+            }
+            
+            function newAcct(){
+                if(userName.innerHTML == ""){
+                    alert('You must fill up all the required fields*.');
+                    editMode();
+                }
+            }
+            
+            function saveUserData(){
+                for(var i = 0; i < accounts.length; i++){
+                    if(getUserID() == accounts[i].accountid){
+                        accounts[i].firstname = fname.value;
+                        accounts[i].middlename = mname.value;
+                        accounts[i].lastname = lname.value;
+                        accounts[i].suffix = sname.value;
+                        accounts[i].birthdate = bdate.value;
+                        accounts[i].birthplace = bplace.value;
+                        accounts[i].nickname = nname.value;
+                        accounts[i].gender = gender.value;
+                        accounts[i].civilstatus = cstatus.value;
+                        accounts[i].citizenship = citizenship.value;
+                        accounts[i].address = address.value;
+                        accounts[i].contact = contact.value;
+                        accounts[i].email = emailaddress.value;
+                        accounts[i].spousename = spousename.value;
+                        accounts[i].spousebplace = spousebplace.value;
+                        accounts[i].fathername = fathername.value;
+                        accounts[i].fatherbplace = fatherbplace.value;
+                        accounts[i].mothername = mothername.value;
+                        accounts[i].motherbplace = motherbplace.value;
+                        accounts[i].educattain = educattain.value;
+                        accounts[i].occupation = occupation.value;
+                        accounts[i].religion = religion.value;
+                        accounts[i].userheight = userHeight.value;
+                        accounts[i].userweight = userWeight.value;
+                        accounts[i].idmarks = idMark.value;
+                    }
+                }
+                setAccount();
+            }
+            
+            function applyClicked(){
+                var parameters = location.search.substring(1).split("&");
+                if(parameters[1] == "ApplyClearance"){
+                    $('#applyClearance').modal('show');
+                }
+            }
+            
+            var currentPass = document.getElementById('currentPass'),
+                newPass = document.getElementById('newPass'), 
+                confnewPass = document.getElementById('confnewPass');
+            
+            function chBtn(){
+                if(currentPass.value == accounts[accArr].password){
+                    if(newPass.value == confnewPass.value){
+                        accounts[accArr].password = newPass.value;
+                        setAccount();
+                        alert('Password Successfully Change.');
+                        location.reload();
+                    }else{
+                        alert('Password does not match.');
+                    }
+                }else{
+                    alert('Invalid Password.');
+                }
+            }
+            
+            function chPass(){
+                $('#chpassModal').modal('show');
+            }
+            
+            function logoutCMD(){
+                $('#logoutModal').modal('show');
+            }
+            
         </script> <!--DASHBOARD SCRIPT-->
         <script src="js/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>

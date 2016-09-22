@@ -9,29 +9,62 @@ and open the template in the editor.
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     </head>
     <body>
-        <div id="output"></div>
+        <div id="output">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <td>ACCOUNT ID</td>
+                        <td>EMAIL</td>
+                        <td>PASSWORD</td>
+                        <td>DATE CREATED</td>
+                        <td>USER NAME</td>
+                    </tr>
+                </thead>
+                <tbody id="tbdy">
+                    
+                </tbody>
+            </table>
+            
+            <input type="button" value='POP ACCOUNT' id="popBtn">
+            
+        </div>
         <script>
             var accounts = JSON.parse(localStorage.getItem("accounts"));
+            var tbdy = document.getElementById('tbdy');
             
             function setAccount(){
                 localStorage.setItem("accounts", JSON.stringify(accounts));
             }
             
-            var out;
-            
-            out = "<table>\n\
-                    <thead>\n\
-                        <tr><td>USER ID</td><td>USER EMAIL</td>USER PASSWORD<td></td></tr>\n\
-                    </thead>\n\
-                    <tbody>";
-            for(var i = 0; i < localStorage.length; i++){
-                
+            for(var i = 0; i < accounts.length; i++){
+                var tr = document.createElement('tr');
+                var tdID = document.createElement('td'),
+                    tdEMAIL = document.createElement('td'),
+                    tdPASS = document.createElement('td'),
+                    tdDATE = document.createElement('td'),
+                    tdNAME = document.createElement('td');
+                tdID.innerHTML = accounts[i].accountid;
+                tdEMAIL.innerHTML = accounts[i].email;
+                tdPASS.innerHTML = accounts[i].password;
+                tdDATE.innerHTML = accounts[i].datecreated;
+                tdNAME.innerHTML = accounts[i].firstname + " " + accounts[i].middlename + " " + accounts[i].lastname;
+                tr.appendChild(tdID);
+                tr.appendChild(tdEMAIL);
+                tr.appendChild(tdPASS);
+                tr.appendChild(tdDATE);
+                tr.appendChild(tdNAME);
+                tbdy.appendChild(tr);
             }
             
-            
-            document.getElementById('output').innerHTML = localStorage
+            var popBtn = document.getElementById('popBtn');
+            popBtn.onclick = function(){
+                accounts.pop();
+            }
         </script>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
     </body>
 </html>

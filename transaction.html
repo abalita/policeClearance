@@ -17,9 +17,12 @@ and open the template in the editor.
             table{
                 padding: 10px;
             }
+            #chpassTbl tr td{
+                padding: 20px;
+            }
         </style>
     </head>
-    <body>
+    <body onload="makeTransTbl()">
         
         <nav class="navbar navbar-default sidebar" role="navigation" style="z-index: 1;position: fixed;top: 0;">
             <div class="container-fluid">
@@ -37,7 +40,7 @@ and open the template in the editor.
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown">APPLICATION <span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-book"></span></a>
                       <ul class="dropdown-menu forAnimate" role="menu">
                           <li><a href="#" onclick="dashboardLink()">View Application</a></li>
-                        <li><a href="#" data-toggle="modal" data-target="#checkStatus" id="applyClearanceBtn">Apply for Clearance</a></li>
+                          <li><a href="#" onclick="applyClearanceLink()">Apply for Clearance</a></li>
                         <li><a href="#" onclick="dashboardLink()">Edit Information</a></li>
                       </ul>
                     </li>          
@@ -46,8 +49,8 @@ and open the template in the editor.
                     <li class="dropdown">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown">ACCOUNT <span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
                       <ul class="dropdown-menu forAnimate" role="menu">
-                        <li><a href="#">Change Password</a></li>
-                        <li><a href="index.html">Logout</a></li>
+                        <li><a href="#chpassModal" onclick="chPass()">Change Password</a></li>
+                        <li><a href="#" onclick="logoutCMD()">Logout</a></li>
                       </ul>
                     </li>  
                   </ul>
@@ -60,43 +63,92 @@ and open the template in the editor.
 
         </div>
         
-        <div class="container" style="background-color: #00ffff;border: 1px solid; box-shadow: 3px 3px 40px #cccccc;margin-top: 20px;" id="headerTitle">
+        <div class="container" style="background-color: #888;border: 1px solid; box-shadow: 3px 3px 40px #cccccc;margin-top: 20px;color: #fff" id="headerTitle">
             <center><h1 id="headerText">TRANSACTION</h1></center>
         </div> <!--HEADER-->
         
         <div class="container" style="border: 1px solid; box-shadow: 3px 3px 40px #cccccc;background-color: #eee;padding: 20px;margin-bottom: 20px;">
-            <table class="table table-bordered">
+            <table class="table table-bordered table-striped table-hover table-responsive">
                 <thead>
                     <tr>
                         <td>Transaction No.</td>
                         <td>Price</td>
-                        <td>Expiration Date</td>
+                        <td>Transaction Date</td>
                         <td>Expiration Date</td>
                         <td>Status</td>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td style="color: blue;font-size: 30px;text-align: center;">#AOQLX6101240</td>
-                        <td>Price: <b> &Rcy; 150</b></td>
-                        <td>September 30, 2016</td>
-                        <td><span class="label label-danger">UNPAID</span></td>
-                        <td style="width: 17%;">
-                            <input type="button" value="CANCEL" class="btn btn-warning">
-                            <input type="button" value="DETAILS" class="btn btn-info">
-                        </td>
-                    </tr>
+                <tbody id="tbdy">
                 </tbody>
             </table>
         </div>
         
+        <!--CHANGE PASSWORD-->
+        <div class="modal fade" id="chpassModal">
+            <div class="modal-dialog" style="max-width: 400px;">
+                <div class="modal-content">
+                    <div class="modal-header bg-info">
+                        CHANGE PASSWORD
+                        <button class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <table id="chpassTbl">
+                            <tr>
+                                <td>Password:</td>
+                                <td><input type="password" id="currentPass" name="currentPass"></td>
+                            </tr> 
+                            <tr>
+                                <td>New Password:</td>
+                                <td><input type="password" id="newPass" name="newPass"></td>
+                            </tr>
+                            <tr>
+                                <td>Confirm New Password:</td>
+                                <td><input type="password" id="confnewPass" name="confnewPass"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><center><input type="button" class="btn btn-block" onclick="chBtn()" value="Change Password"></center></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!--LOGOUT MODAL-->
+        <div class="modal fade" id="logoutModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-info">
+                        CONFIRMATION
+                        <button class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <h3>Are you sure you want to logout?</h3>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="button" name="yesBtn" value="YES" class="btn btn-info btn-icon" onclick="window.location = 'index.html';" data-dismiss="modal">
+                        <input type="button" name="noBtn" value="NO" class="btn btn-default btn-icon" data-dismiss="modal">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <script>
+            var accounts = JSON.parse(localStorage.getItem("accounts"));
+            var parameters = location.search.substring(1).split("&");
+            var transNoText = document.getElementById('transNoText');
+            var accArr;
+            
             function transactionPage(){
                 window.location = '/PoliceClearanceProject/transaction.html?userid=' + getUserID();
             }
             
             function dashboardLink(){
                 window.location = '/PoliceClearanceProject/dashboard.html?userid=' + getUserID();
+            }
+            
+            function applyClearanceLink(){
+                window.location = '/PoliceClearanceProject/dashboard.html?userid=' + getUserID() + "&ApplyClearance";
             }
             
             /*Get Info*/
@@ -106,6 +158,81 @@ and open the template in the editor.
                 var temp = parameters[0].split("=");
                 var inputValue = temp[1].replace(/\+/g, ' ');
                 return unescape(inputValue);
+            }
+            
+            function makeTransTbl(){
+                for(var i = 0; i < accounts.length; i++){
+                    if(accounts[i].transactionno != ""){
+                        if(getUserID() == accounts[i].accountid){
+                            accArr = i;
+                            var tr = document.createElement('tr');
+                            var tdNo = document.createElement('td'),
+                                tdPrice = document.createElement('td'),
+                                tdTransDate = document.createElement('td'),
+                                tdExpDate = document.createElement('td'),
+                                tdStatus = document.createElement('td'),
+                                tdDetails = document.createElement('td');
+                            var detailsBtn = document.createElement('input');
+                            var statusSpan = document.createElement('span');
+
+                            tdNo.style.color = "blue";
+                            tdNo.style.fontSize = "30px";
+                            tdNo.style.textAlign = "center";
+                            tdNo.innerHTML = "#" + accounts[i].transactionno;
+                            tdPrice.innerHTML = "&Rcy; 150";
+                            tdTransDate.innerHTML = accounts[i].transactiondate;
+                            tdExpDate.innerHTML = "December 5, 2016";
+
+                            statusSpan.className = "label label-primary";
+                            statusSpan.innerHTML = accounts[i].transactionstatus;
+                            tdStatus.appendChild(statusSpan);
+
+                            detailsBtn.type = "button";
+                            detailsBtn.value = "DETAILS";
+                            detailsBtn.className = "btn btn-info";
+                            tdDetails.style.width = "9%";
+
+                            tdDetails.appendChild(detailsBtn);
+
+                            tr.appendChild(tdNo);
+                            tr.appendChild(tdPrice);
+                            tr.appendChild(tdTransDate);
+                            tr.appendChild(tdExpDate);
+                            tr.appendChild(tdStatus);
+                            tr.appendChild(tdDetails);
+                            tbdy.appendChild(tr);
+                            break;
+                        }
+
+                    }
+                }
+            }
+            
+            var currentPass = document.getElementById('currentPass'),
+                newPass = document.getElementById('newPass'), 
+                confnewPass = document.getElementById('confnewPass');
+            
+            function chBtn(){
+                if(currentPass.value == accounts[accArr].password){
+                    if(newPass.value == confnewPass.value){
+                        accounts[accArr].password = newPass.value;
+                        setAccount();
+                        alert('Password Successfully Change.');
+                        location.reload();
+                    }else{
+                        alert('Password does not match.');
+                    }
+                }else{
+                    alert('Invalid Password.');
+                }
+            }
+            
+            function chPass(){
+                $('#chpassModal').modal('show');
+            }
+            
+            function logoutCMD(){
+                $('#logoutModal').modal('show');
             }
         </script>
         <script src="js/jquery.min.js"></script>
