@@ -12,6 +12,8 @@ and open the template in the editor.
         <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="css/agency.min.css" rel="stylesheet">
         <link href="css/sidebarmenu.css" rel="stylesheet">
+        <link href="css/agency.min.css" rel="stylesheet">
+        <script src="json/userinfo.js"></script>
         <style>
             .title-border{
 		width: 100%; 
@@ -32,7 +34,7 @@ and open the template in the editor.
             }
         </style>
     </head>
-    <body>
+    <body onload="getUserData()">
         
         <nav class="navbar navbar-default sidebar" role="navigation" style="z-index: 1;position: fixed;">
             <div class="container-fluid">
@@ -49,17 +51,17 @@ and open the template in the editor.
                     <li class="dropdown">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown">APPLICATION <span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-book"></span></a>
                       <ul class="dropdown-menu forAnimate" role="menu">
-                        <li><a href="dashboard.html">View Application</a></li>
-                        <li><a href="">Apply for Clearance</a></li>
-                        <li><a href="edit_clearance_form.html">Edit Information</a></li>
+                          <li><a href="#" onclick="dashboardLink()">View Application</a></li>
+                        <li><a href="#" data-toggle="modal" data-target="#checkStatus" id="applyClearanceBtn">Apply for Clearance</a></li>
+                        <li><a href="#" onclick="editinfoLink()">Edit Information</a></li>
                       </ul>
                     </li>          
-                    <li ><a href="#">Transaction<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-euro"></span></a></li>        
+                    <li ><a href="#" onclick="transactionPage()">Transaction<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-euro"></span></a></li>        
                     <li ><a href="#">Contact Us<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-comment"></span></a></li>
                     <li class="dropdown">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown">ACCOUNT <span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
                       <ul class="dropdown-menu forAnimate" role="menu">
-                        <li><a href="dashboard.html">Change Password</a></li>
+                        <li><a href="#">Change Password</a></li>
                         <li><a href="index.html">Logout</a></li>
                       </ul>
                     </li>  
@@ -68,9 +70,13 @@ and open the template in the editor.
             </div>
         </nav>
         
+        <div class="myBackgroundImage">
+
+        </div>
+        
         <section id="application">
             <div class="container">
-                <div class="col-lg-12">
+                <div class="col-lg-10">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h1 class="text-center text-uppercase text-primary">EDIT APPLICATION</h1>
@@ -86,50 +92,50 @@ and open the template in the editor.
                                     <div class="row">
                                         <div class="form-group">
                                             <label for="userFirstName">First Name</label><span id="reqField">*</span>
-                                            <input type="text" class="form-control" name="userFirstName" value="" required>
+                                            <input type="text" class="form-control" id="userFirstName" name="userFirstName" value="" required>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group">
                                             <label for="userMiddleName">Middle Name</label><span id="reqField">*</span>
-                                            <input type="text" class="form-control" name="userMiddleName" value="" required>
+                                            <input type="text" class="form-control" id="userMiddleName" name="userMiddleName" value="" required>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group">
                                             <label for="userLastName">Last Name</label><span id="reqField">*</span>
-                                            <input type="text" class="form-control" name="userLastName" value="" required>
+                                            <input type="text" class="form-control" id="userLastName" name="userLastName" value="" required>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group">
                                             <label for="userSuffix">Suffix</label>
-                                            <input type="text" class="form-control" name="userSuffix" value="">
+                                            <input type="text" class="form-control" id="userSuffix" name="userSuffix" value="">
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="form-group">
                                             <label for="userBirthDate">Birth Date</label><span id="reqField">*</span>
-                                            <input type="date" class="form-control" name="userBirthDate" value="" required>
+                                            <input type="date" class="form-control" id="userBirthDate" name="userBirthDate" value="" required>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group">
                                             <label for="userBirthPlace">Birth Place</label><span id="reqField">*</span>
-                                            <input type="text" class="form-control" name="userBirthPlace" value="" required>
+                                            <input type="text" class="form-control" id="userBirthPlace" name="userBirthPlace" value="" required>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group">
                                             <label for="userNickname">Nickname</label>
-                                            <input type="text" class="form-control" name="userNickname" value="">
+                                            <input type="text" class="form-control" id="userNickname" name="userNickname" value="">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group">
                                             <label for="userGender">Gender</label><span id="reqField">*</span>
-                                            <select class="form-control" name="userGender" required>
+                                            <select class="form-control" id="userGender" name="userGender" required>
                                                 <option></option>
                                                 <option>Male</option>
                                                 <option>Female</option>
@@ -140,7 +146,7 @@ and open the template in the editor.
                                     <div class="row">
                                         <div class="form-group">
                                             <label for="userCivilStatus">Civil Status</label><span id="reqField">*</span>
-                                            <select class="form-control" name="userCivilStatus" required>
+                                            <select class="form-control" id="userCivilStatus" name="userCivilStatus" required>
                                                 <option></option>
                                                 <option>Single</option>
                                                 <option>Married</option>
@@ -152,7 +158,7 @@ and open the template in the editor.
                                     <div class="row">
                                         <div class="form-group">
                                             <label for="userCitizenship">Citizenship</label><span id="reqField">*</span>
-                                            <input type="text" class="form-control" name="userCitizenship" value="" required>
+                                            <input type="text" class="form-control" id="userCitizenship" name="userCitizenship" value="" required>
                                         </div>
                                     </div>
                                 </div> <!--Applicant Info-->
@@ -166,19 +172,19 @@ and open the template in the editor.
                                     <div class="row">
                                         <div class="form-group">
                                             <label for="userAddress">Address</label><span id="reqField">*</span>
-                                            <input type="text" class="form-control" name="userAddress" value="" required>
+                                            <input type="text" class="form-control" id="userAddress" name="userAddress" value="" required>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group">
                                             <label for="userContactNo">Contact No.</label><span id="reqField">*</span>
-                                            <input type="text" class="form-control" name="userContactNo" value="" required>
+                                            <input type="text" class="form-control" id="userContactNo" name="userContactNo" value="" required>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group">
                                             <label for="userEmailAddress">Email Address</label>
-                                            <input type="text" class="form-control" name="userEmailAddress" value="" readonly>
+                                            <input type="text" class="form-control" id="userEmailAddress" name="userEmailAddress" value="" readonly>
                                         </div>
                                     </div>
                                 </div> <!--Contact Info-->
@@ -192,37 +198,37 @@ and open the template in the editor.
                                     <div class="row">
                                         <div class="form-group">
                                             <label for="userSpouseName">Spouse Name</label>
-                                            <input type="text" class="form-control" name="userSpouseName" value="">
+                                            <input type="text" class="form-control" id="userSpouseName" name="userSpouseName" value="">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group">
                                             <label for="userSpouseBplace">Birth Place</label>
-                                            <input type="text" class="form-control" name="userSpouseBplace" value="">
+                                            <input type="text" class="form-control" id="userSpouseBplace" name="userSpouseBplace" value="">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group">
                                             <label for="userFatherName">Father Name</label><span id="reqField">*</span>
-                                            <input type="text" class="form-control" name="userFatherName" value="" required>
+                                            <input type="text" class="form-control" id="userFatherName" name="userFatherName" value="" required>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group">
                                             <label for="userFatherBplace">Birth Place</label>
-                                            <input type="text" class="form-control" name="userFatherBplace" value="">
+                                            <input type="text" class="form-control" id="userFatherBplace" name="userFatherBplace" value="">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group">
                                             <label for="userMotherName">Mother Name</label><span id="reqField">*</span>
-                                            <input type="text" class="form-control" name="userMotherName" value="" required>
+                                            <input type="text" class="form-control" id="userMotherName" name="userMotherName" value="" required>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group">
                                             <label for="userMotherBplace">Birth Place</label>
-                                            <input type="text" class="form-control" name="userMotherBplace" value="">
+                                            <input type="text" class="form-control" id="userMotherBplace" name="userMotherBplace" value="">
                                         </div>
                                     </div>
                                 </div> <!--Family Background-->
@@ -236,7 +242,7 @@ and open the template in the editor.
                                     <div class="row">
                                         <div class="form-group">
                                             <label for="userEducAttain">Educational Attainment</label>
-                                            <select class="form-control" name="userEducAttain">
+                                            <select class="form-control" id="userEducAttain" name="userEducAttain">
                                                 <option></option>
                                                 <option>COLLEGE GRADUATE</option>
                                                 <option>VOCATIONAL</option>
@@ -253,13 +259,13 @@ and open the template in the editor.
                                     <div class="row">
                                         <div class="form-group">
                                             <label for="userOccupation">Occupation</label>
-                                            <input type="text" class="form-control" name="userOccupation" value="">
+                                            <input type="text" class="form-control" id="userOccupation" name="userOccupation" value="">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group">
                                             <label for="userReligion">Religion</label>
-                                            <select class="form-control" name="userReligion">
+                                            <select class="form-control" id="userReligion" name="userReligion">
                                                 <option></option>
                                                 <option>Roman Catholic</option>
                                                 <option>Born Again</option>
@@ -285,32 +291,119 @@ and open the template in the editor.
                                     <div class="row">
                                         <div class="form-group">
                                             <label for="userHeight">Height</label>
-                                            <input type="text" class="form-control" name="userHeight" value="">
+                                            <input type="text" class="form-control" id="userHeight" name="userHeight" value="">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group">
                                             <label for="userWeight">Weight</label>
-                                            <input type="text" class="form-control" name="userWeight" value="">
+                                            <input type="text" class="form-control" id="userWeight" name="userWeight" value="">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group">
                                             <label for="userIdMarks">Identifying Marks</label>
-                                            <input type="text" class="form-control" name="userIdMarks" value="">
+                                            <input type="text" class="form-control" id="userIdMarks" name="userIdMarks" value="">
                                         </div>
                                     </div>
                                 </div> <!--Other Info-->
                             </div>
                             <div class="modal-footer">
+                                <span class="label label-success">Note:</span>
+                                Please fill up all the required fields*.
                                 <input type="hidden" name="isEmpty" value="">
-                                <input type="submit" name="submit" value="SAVE INFORMATION" class="btn btn-success btn-icon"><i class="fa fa-check"></i> 
+                                <input type="submit" name="submit" value="SAVE INFORMATION" class="btn btn-success btn-icon" data-toggle="modal" data-target="#saveEdit"><i class="fa fa-check"></i> 
+                                <input type="button" name="cancel" value="CANCEL" class="btn btn-default btn-icon" data-toggle="modal" data-target="#cancelEdit">
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
         </section>
+        
+        <!--CANCEL BUTTON-->
+        <div class="modal fade" id="cancelEdit">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-info">
+                        <b>CONFIRMATION</b>
+                        <button class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <h5 class="text-bold">Do you want to cancel editing of your information?</h5>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="button" name="yesBtn" value="YES" class="btn btn-info btn-icon" onclick="dashboardLink()">
+                        <input type="button" name="noBtn" value="NO" class="btn btn-default btn-icon" data-dismiss="modal">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!--SAVE INFORMATION BUTTON-->
+        <div class="modal fade" id="saveEdit">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-info">
+                        <b>CONFIRMATION</b>
+                        <button class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <h5 class="text-bold">Do you want to save your information?</h5>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="button" name="yesBtn" value="YES" class="btn btn-info btn-icon" onclick="dashboardLink()">
+                        <input type="button" name="noBtn" value="NO" class="btn btn-default btn-icon" data-dismiss="modal">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <script>
+            
+            var userFirstName = document.getElementById('userFirstName'),
+                userMiddleName = document.getElementById('userMiddleName'),
+                userLastName = document.getElementById('userLastName'),
+                userSuffix = document.getElementById('userSuffix'),
+                userBirthDate = document.getElementById('userBirthDate'),
+                userEmailAddress = document.getElementById('userEmailAddress');
+            
+            function transactionPage(){
+                window.location = '/PoliceClearanceProject/transaction.html?userid=' + getUserID();
+            }
+            
+            function editinfoLink(){
+                window.location = '/PoliceClearanceProject/edit_clearance_form.html?userid=' + getUserID();
+            }
+            
+            function dashboardLink(){
+                window.location = '/PoliceClearanceProject/dashboard.html?userid=' + getUserID();
+            }
+            
+            function getUserID(){
+                var parameters = location.search.substring(1).split("&");
+                var temp = parameters[0].split("=");
+                var inputValue = temp[1].replace(/\+/g, ' ');
+                return unescape(inputValue);
+            }
+            
+            function getUserData(){
+                for(var i = 0; i < accounts.length; i++){
+                    if(getUserID() == accounts[i].accountid){
+                        userFirstName.value = accounts[i].firstname;
+                        userMiddleName.value = accounts[i].middlename;
+                        userLastName.value = accounts[i].lastname;
+                        userSuffix.value = accounts[i].suffix;
+                        userBirthDate.value = accounts[i].birthdate;
+                        userEmailAddress.value = accounts[i].email;
+                    }
+                }
+            }
+            
+            function cancelEdit(){
+                
+            }
+        </script>
         
         <script src="js/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>

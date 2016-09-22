@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/agency.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="css/sidebarmenu.css">
+        <script src="json/userinfo.js"></script>
+        <style>
+            table{
+                padding: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        
+        <nav class="navbar navbar-default sidebar" role="navigation" style="z-index: 1;position: fixed;top: 0;">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>      
+                </div>
+                <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
+                  <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">APPLICATION <span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-book"></span></a>
+                      <ul class="dropdown-menu forAnimate" role="menu">
+                          <li><a href="#" onclick="dashboardLink()">View Application</a></li>
+                        <li><a href="#" data-toggle="modal" data-target="#checkStatus" id="applyClearanceBtn">Apply for Clearance</a></li>
+                        <li><a href="#" onclick="dashboardLink()">Edit Information</a></li>
+                      </ul>
+                    </li>          
+                    <li ><a href="#" onclick="transactionPage()">Transaction<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-euro"></span></a></li>        
+                    <li ><a href="#">Contact Us<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-comment"></span></a></li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">ACCOUNT <span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
+                      <ul class="dropdown-menu forAnimate" role="menu">
+                        <li><a href="#">Change Password</a></li>
+                        <li><a href="index.html">Logout</a></li>
+                      </ul>
+                    </li>  
+                  </ul>
+                </div>
+            </div>
+        </nav> <!--SIDEMENU BAR-->
+        
+        <!--Background Image-->
+        <div class="myBackgroundImage" style="top: 0;bottom: 0;left: 0;right: 0;">
+
+        </div>
+        
+        <div class="container" style="background-color: #00ffff;border: 1px solid; box-shadow: 3px 3px 40px #cccccc;margin-top: 20px;" id="headerTitle">
+            <center><h1 id="headerText">TRANSACTION</h1></center>
+        </div> <!--HEADER-->
+        
+        <div class="container" style="border: 1px solid; box-shadow: 3px 3px 40px #cccccc;background-color: #eee;padding: 20px;margin-bottom: 20px;">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <td>Transaction No.</td>
+                        <td>Price</td>
+                        <td>Expiration Date</td>
+                        <td>Expiration Date</td>
+                        <td>Status</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="color: blue;font-size: 30px;text-align: center;">#AOQLX6101240</td>
+                        <td>Price: <b> &Rcy; 150</b></td>
+                        <td>September 30, 2016</td>
+                        <td><span class="label label-danger">UNPAID</span></td>
+                        <td style="width: 17%;">
+                            <input type="button" value="CANCEL" class="btn btn-warning">
+                            <input type="button" value="DETAILS" class="btn btn-info">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <script>
+            function transactionPage(){
+                window.location = '/PoliceClearanceProject/transaction.html?userid=' + getUserID();
+            }
+            
+            function dashboardLink(){
+                window.location = '/PoliceClearanceProject/dashboard.html?userid=' + getUserID();
+            }
+            
+            /*Get Info*/
+            
+            function getUserID(){
+                var parameters = location.search.substring(1).split("&");
+                var temp = parameters[0].split("=");
+                var inputValue = temp[1].replace(/\+/g, ' ');
+                return unescape(inputValue);
+            }
+        </script>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+    </body>
+</html>

@@ -13,7 +13,7 @@ and open the template in the editor.
     </head>
     <body>
         <script>
-            
+            var accounts = JSON.parse(localStorage.getItem("accounts"));
             var parameters = location.search.substring(1).split("&");
             var userDetail = [];
             function loopProcess(){
@@ -31,13 +31,16 @@ and open the template in the editor.
             function Login(){
                 for(var i = 0; i < accounts.length; i++){
                     if(userDetail[0] == accounts[i].email && userDetail[1] == accounts[i].password){
-                        window.location = 'dashboard.html';
-                    }else if(userDetail[0] == info[0] && userDetail[1] == info[1]){
-                        window.location = 'edit_clearance_form.html';
-                    }else{
-                        alert("Invalid Username or Password.");
+                        window.location = '/PoliceClearanceProject/dashboard.html?userid=' + accounts[i].accountid;
+                        break;
+                    }else if(i == accounts.length -1){
+                        window.location = '/PoliceClearanceProject/index.html?Invalid';
                     }
                 }
+            }
+            
+            function setAccount(){
+                localStorage.setItem("accounts", JSON.stringify(accounts));
             }
             loopProcess();
             Login();

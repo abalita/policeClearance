@@ -22,6 +22,7 @@
     <link href="css/agency.min.css" rel="stylesheet">
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="json/userinfo.js"></script>
     <style>
         .carousel-inner, .item,.item img{
             max-width:100%;
@@ -38,7 +39,7 @@
     </style>
 </head>
 
-<body id="page-top" class="index">
+<body id="page-top" class="index" onload="setAccount();invalidSignin();">
 
     <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top">
         <div class="container">
@@ -97,7 +98,7 @@
                     </div>
 
                     <div class="modal-footer">
-                        <input type="submit" id="login-submit" class="btn btn-primary btn-block" value="Log In">
+                        <input type="submit" id="loginSubmit" class="btn btn-primary btn-block" value="Log In">
                     </div>
                 </form>
             </div>
@@ -163,33 +164,33 @@
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button>
                         <h4 class="modal-title">Ready to Join? Create a New Account</h4>
                     </div>
-                    <form action="index.html" method="GET">
+                    <form action="">
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="userEmail">Email Address</label>
-                                <input type="text" class="form-control" required name="userEmail" value="" id="newUserEmail">
+                                <input type="text" class="form-control" required value="" id="newUserEmail">
                                 <span class="help-block">Your email address is also used to log in.</span>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="password">Password</label>
-                                        <input type="password" class="form-control" required name="password" value="" id="newUserPass">
+                                        <input type="password" class="form-control" required value="" id="newUserPass">
                                         <span class="help-block">Choose a password for your new account.</span>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="passwordr">Confirm Password</label>
-                                        <input type="password" class="form-control" required name="passwordr" value="" id="newConfPass">
+                                        <input type="password" class="form-control" required value="" id="newConfPass">
                                         <span class="help-block">Type the password again. Passwords must match.</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <input type="hidden" name="isEmpty" value="">
-                            <input type="submit" name="submit" id="newAcctBtn" value="Create My Account" class="btn btn-success btn-icon">
+                            <input type="hidden" value="">
+                            <input type="submit" id="newAcctBtn" value="Create My Account" class="btn btn-success btn-icon" onclick="signUp();">
                         </div>
                     </form>
                 </div>
@@ -369,7 +370,7 @@
     <script src="js/agency.min.js"></script>
     
     <script>
-        
+        var accounts = JSON.parse(localStorage.getItem("accounts"));
         var parameters = location.search.substring(1).split("&");
         var info = [];
         
@@ -387,7 +388,6 @@
         loopProcess();
         
         /*Sign in*/
-        var loginBtn = document.getElementById('login-submit');
         var userEmail = document.getElementById('userEmail');
         var userPass = document.getElementById('userPass')
         
@@ -403,27 +403,66 @@
         }
         
         /*Sign up*/
-        var signupBtn = document.getElementById('newAcctBtn');
         var newEmail = document.getElementById('newUserEmail');
         var newPass = document.getElementById('newUserPass');
         var newConfPass = document.getElementById('newConfPass');
         
         function resetValueSignUp(){
-            newEmail.value = '';
             newPass.value = '';
             newConfPass.value = '';
         }
           
-        signupBtn.onclick = function(){
+        function signUp(){
             if(newPass.value == newConfPass.value){
-                alert('Confirmation was send to your email(' +  + ')');
-                
+                alert('Confirmation was send to your email(' + newEmail.value + ')');
+                accounts.push({
+                    "accountid": Number(accounts[accounts.length - 1].accountid + 1),
+                    "email": newEmail.value,
+                    "password": newPass.value,
+                    "lastname": "-",
+                    "firstname": "-",
+                    "middlename": "-",
+                    "suffix": "-",
+                    "birthdate": "-",
+                    "birthplace": "-",
+                    "nickname": "-",
+                    "gender": "-",
+                    "contact": "-",
+                    "civilstatus": "-",
+                    "citizenship": "-",
+                    "spousename": "-",
+                    "spousebplace": "-",
+                    "address": "-",
+                    "fathername": "-",
+                    "fatherbplace": "-",
+                    "mothername": "-",
+                    "motherbplace": "-",
+                    "educattain": "-",
+                    "occupation": "-",
+                    "religion": "-",
+                    "userheight": "-",
+                    "userweight": "-",
+                    "idmarks": "-"
+                });
+                setAccount();
+                window.location='#page-top';
             }else{
                 alert('Password and Confirm Password must be match.');
                 resetValueSignUp();
             }
         }
+            
+        function setAccount(){
+            localStorage.setItem("accounts", JSON.stringify(accounts));
+        }
         
+        function invalidSignin(){
+            var chk = location.search.substring(1).split("&");;
+            if(unescape(chk) == "Invalid"){
+                alert("Invalid Username or Password.");
+                window.location = "index.html";
+            }
+        }
     </script>
 
 </body>
