@@ -20,20 +20,60 @@ and open the template in the editor.
             #chpassTbl tr td{
                 padding: 20px;
             }
+            ul #myList {
+                list-style-type:square;
+            }
+            .transaction-text{
+                color: red;
+                font-size: 50px;
+                margin: auto;
+                padding: auto;
+            }
         </style>
     </head>
     <body onload="makeTransTbl()">
         
-        <nav class="navbar navbar-default sidebar" role="navigation" style="z-index: 1;position: fixed;top: 0;">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                  </button>      
+        <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top">
+            <div class="container">
+
+                <div class="navbar-header page-scroll">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand page-scroll" href="#page-top">Police Clearance</a>
                 </div>
+                
+                <div class="collapse navbar-collapse" id="bs-sidebar">
+                  <ul class="nav navbar-nav hidden-md hidden-lg">
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">APPLICATION <span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-book"></span></a>
+                      <ul class="dropdown-menu forAnimate" role="menu">
+                          <li><a href="#" onclick="dashboardLink()">View Application</a></li>
+                          <li><a href="#" onclick="applyClearanceLink()">Apply for Clearance</a></li>
+                        <li><a href="#" onclick="dashboardLink()">Edit Information</a></li>
+                      </ul>
+                    </li>          
+                    <li ><a href="#" onclick="transactionPage()">Transaction<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-euro"></span></a></li>        
+                    <li ><a href="#">Contact Us<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-comment"></span></a></li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">ACCOUNT <span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
+                      <ul class="dropdown-menu forAnimate" role="menu">
+                        <li><a href="#chpassModal" onclick="chPass()">Change Password</a></li>
+                        <li><a href="#" onclick="logoutCMD()">Logout</a></li>
+                      </ul>
+                    </li>  
+                  </ul>
+                </div>
+                
+            </div>
+
+        </nav>
+        
+        <nav class="navbar navbar-default sidebar visible-lg visible-md" role="navigation" style="z-index: 1;position: fixed;top: 70px;">
+            <div class="container-fluid">
                 <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
                   <ul class="nav navbar-nav">
                     <li class="dropdown">
@@ -56,31 +96,78 @@ and open the template in the editor.
                   </ul>
                 </div>
             </div>
-        </nav> <!--SIDEMENU BAR-->
+        </nav> <!--NAVIGATOR-->
         
         <!--Background Image-->
         <div class="myBackgroundImage" style="top: 0;bottom: 0;left: 0;right: 0;">
 
         </div>
         
-        <div class="container" style="background-color: #888;border: 1px solid; box-shadow: 3px 3px 40px #cccccc;margin-top: 20px;color: #fff" id="headerTitle">
-            <center><h1 id="headerText">TRANSACTION</h1></center>
-        </div> <!--HEADER-->
+        <section>
+            <div class="container" style="background-color: #888;border: 1px solid; box-shadow: 3px 3px 40px #cccccc;margin-top: 20px;color: #fff" id="headerTitle">
+                <center><h1 id="headerText">TRANSACTION</h1></center>
+            </div> <!--HEADER-->
+
+            <div class="container" style="border: 1px solid; box-shadow: 3px 3px 40px #cccccc;background-color: #eee;padding: 20px;margin-bottom: 20px;">
+                <table class="table table-bordered table-striped table-hover table-responsive">
+                    <thead>
+                        <tr>
+                            <td>Transaction No.</td>
+                            <td>Price</td>
+                            <td>Transaction Date</td>
+                            <td>Expiration Date</td>
+                            <td>Status</td>
+                        </tr>
+                    </thead>
+                    <tbody id="tbdy">
+                    </tbody>
+                </table>
+            </div>
+        </section>
         
-        <div class="container" style="border: 1px solid; box-shadow: 3px 3px 40px #cccccc;background-color: #eee;padding: 20px;margin-bottom: 20px;">
-            <table class="table table-bordered table-striped table-hover table-responsive">
-                <thead>
-                    <tr>
-                        <td>Transaction No.</td>
-                        <td>Price</td>
-                        <td>Transaction Date</td>
-                        <td>Expiration Date</td>
-                        <td>Status</td>
-                    </tr>
-                </thead>
-                <tbody id="tbdy">
-                </tbody>
-            </table>
+        <!--Details Modal-->
+        <div class="modal fade" id="detailModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <h1></h1>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <td class="text-bold text-center">TRANSACTION NO.</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-center transaction-text">#<span id="transNoText"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Price: <b> &Rcy; <span id="transNoPrice">150.00</span></b>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td>
+                                        <span class="label label-success">NOTE:</span> <br><br>
+                                        <ul id="myList">
+                                            <li>You can pay this transaction number to EC PAY.</li>
+                                            <li>After your transaction, You may print your application.</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="button" name="okBtn" value="CLOSE" class="btn btn-default" data-dismiss="modal">
+                    </div>
+                </div>
+            </div>
         </div>
         
         <!--CHANGE PASSWORD-->
@@ -134,7 +221,7 @@ and open the template in the editor.
         </div>
         
         <script>
-            var accounts = JSON.parse(localStorage.getItem("accounts"));
+            var accounts = JSON.parse(readCookie('accounts'));
             var parameters = location.search.substring(1).split("&");
             var transNoText = document.getElementById('transNoText');
             var accArr;
@@ -162,50 +249,63 @@ and open the template in the editor.
             
             function makeTransTbl(){
                 for(var i = 0; i < accounts.length; i++){
-                    if(accounts[i].transactionno != ""){
-                        if(getUserID() == accounts[i].accountid){
-                            accArr = i;
-                            var tr = document.createElement('tr');
-                            var tdNo = document.createElement('td'),
-                                tdPrice = document.createElement('td'),
-                                tdTransDate = document.createElement('td'),
-                                tdExpDate = document.createElement('td'),
-                                tdStatus = document.createElement('td'),
-                                tdDetails = document.createElement('td');
-                            var detailsBtn = document.createElement('input');
-                            var statusSpan = document.createElement('span');
+                    if(getUserID() == accounts[i].accountid){
+                        for(var j = 0; j < accounts[i].transaction.length; j++){
+                            //alert(accounts[i].transaction.length);
+                            if(accounts[i].transaction[j].transactionno != ""){
+                                accArr = i;
+                                var tr = document.createElement('tr');
+                                var tdNo = document.createElement('td'),
+                                    tdPrice = document.createElement('td'),
+                                    tdTransDate = document.createElement('td'),
+                                    tdExpDate = document.createElement('td'),
+                                    tdStatus = document.createElement('td'),
+                                    tdDetails = document.createElement('td');
+                                var detailsBtn = document.createElement('input');
+                                var statusSpan = document.createElement('span');
+                                var transNo = accounts[i].transaction[j].transactionno;
+                                
+                                tdNo.style.color = "blue";
+                                tdNo.style.fontSize = "30px";
+                                tdNo.style.textAlign = "center";
+                                tdNo.innerHTML = "#" + transNo;
+                                tdPrice.innerHTML = "&Rcy; 150";
+                                tdTransDate.innerHTML = accounts[i].transaction[j].transactiondate;
+                                tdExpDate.innerHTML = "December 5, 2016";
 
-                            tdNo.style.color = "blue";
-                            tdNo.style.fontSize = "30px";
-                            tdNo.style.textAlign = "center";
-                            tdNo.innerHTML = "#" + accounts[i].transactionno;
-                            tdPrice.innerHTML = "&Rcy; 150";
-                            tdTransDate.innerHTML = accounts[i].transactiondate;
-                            tdExpDate.innerHTML = "December 5, 2016";
+                                statusSpan.className = "label label-primary";
+                                statusSpan.innerHTML = accounts[i].transaction[j].transactionstatus;
+                                tdStatus.appendChild(statusSpan);
+                                
+                                
+                                detailsBtn.type = "button";
+                                detailsBtn.value = "DETAILS";
+                                detailsBtn.className = "btn btn-info";
+                                detailsBtn.addEventListener("click", 
+                                    function(){
+                                        transNoText.innerHTML = "";
+                                        $('#detailModal').modal('show');
+                                    });
+                                tdDetails.style.width = "9%";
 
-                            statusSpan.className = "label label-primary";
-                            statusSpan.innerHTML = accounts[i].transactionstatus;
-                            tdStatus.appendChild(statusSpan);
-
-                            detailsBtn.type = "button";
-                            detailsBtn.value = "DETAILS";
-                            detailsBtn.className = "btn btn-info";
-                            tdDetails.style.width = "9%";
-
-                            tdDetails.appendChild(detailsBtn);
-
-                            tr.appendChild(tdNo);
-                            tr.appendChild(tdPrice);
-                            tr.appendChild(tdTransDate);
-                            tr.appendChild(tdExpDate);
-                            tr.appendChild(tdStatus);
-                            tr.appendChild(tdDetails);
-                            tbdy.appendChild(tr);
-                            break;
+                                tdDetails.appendChild(detailsBtn);
+                                
+                                tr.appendChild(tdNo);
+                                tr.appendChild(tdPrice);
+                                tr.appendChild(tdTransDate);
+                                tr.appendChild(tdExpDate);
+                                tr.appendChild(tdStatus);
+                                tr.appendChild(tdDetails);
+                                tbdy.appendChild(tr);
+                            }
                         }
-
+                        break;
                     }
                 }
+            }
+            
+            function getTransNo(x){
+                
             }
             
             var currentPass = document.getElementById('currentPass'),
@@ -225,6 +325,35 @@ and open the template in the editor.
                 }else{
                     alert('Invalid Password.');
                 }
+            }
+            
+            function setAccount(){
+                createCookie('accounts',JSON.stringify(accounts),'30');
+            }
+            
+            function createCookie(name,value,days) {
+                if (days) {
+                    var date = new Date();
+                    date.setTime(date.getTime()+(days*24*60*60*1000));
+                    var expires = "; expires="+date.toGMTString();
+                }
+                else var expires = "";
+                document.cookie = name+"="+value+expires+"; path=/";
+            }
+
+            function readCookie(name) {
+                var nameEQ = name + "=";
+                var ca = document.cookie.split(';');
+                for(var i=0;i < ca.length;i++) {
+                    var c = ca[i];
+                    while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+                }
+                return null;
+            }
+
+            function eraseCookie(name) {
+                createCookie(name,"",-1);
             }
             
             function chPass(){

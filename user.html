@@ -32,12 +32,8 @@ and open the template in the editor.
             
         </div>
         <script>
-            var accounts = JSON.parse(localStorage.getItem("accounts"));
+            var accounts = JSON.parse($.cookie('accounts'));
             var tbdy = document.getElementById('tbdy');
-            
-            function setAccount(){
-                localStorage.setItem("accounts", JSON.stringify(accounts));
-            }
             
             for(var i = 0; i < accounts.length; i++){
                 var tr = document.createElement('tr');

@@ -293,7 +293,8 @@
     <script src="js/agency.min.js"></script>
     
     <script>
-        var accounts = JSON.parse(localStorage.getItem("accounts"));
+        //var accounts = JSON.parse($.cookie('accounts'));
+        var accounts = JSON.parse(readCookie('accounts'));
         var parameters = location.search.substring(1).split("&");
         var info = [];
         
@@ -367,9 +368,7 @@
                     "userweight": "-",
                     "idmarks": "-",
                     "datecreated": new Date().toDateString(),
-                    "transactionno": "",
-                    "transactiondate": "",
-                    "transactionstatus": ""
+                    "transaction": []
                 });
                 setAccount();
                 window.location='#page-top';
@@ -380,7 +379,9 @@
         }
             
         function setAccount(){
-            localStorage.setItem("accounts", JSON.stringify(accounts));
+//            $.cookie('accounts', JSON.stringify(accounts));
+                createCookie('accounts',JSON.stringify(accounts),'30');
+                //createCookie('accounts','test','1');
         }
         
         function invalidSignin(){
@@ -390,7 +391,34 @@
                 window.location = "index.html";
             }
         }
+        
+        function createCookie(name,value,days) {
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime()+(days*24*60*60*1000));
+                var expires = "; expires="+date.toGMTString();
+            }
+            else var expires = "";
+            document.cookie = name+"="+value+expires+"; path=/";
+        }
+
+        function readCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for(var i=0;i < ca.length;i++) {
+                var c = ca[i];
+                while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+            }
+            return null;
+        }
+
+        function eraseCookie(name) {
+            createCookie(name,"",-1);
+        }
     </script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 
 </body>
 

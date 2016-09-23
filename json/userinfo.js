@@ -28,8 +28,10 @@ var accounts =[
 "userweight": "50",
 "idmarks": "-",
 "datecreated": "September 22, 2016",
-"transactionno": "AOXQ6290",
-"transactiondate": "Thu Sep 01 2016",
-"transactionstatus": "PAID"
+"transaction": [{
+    "transactionno": "AOXQ6290",
+    "transactiondate": "Thu Sep 01 2016",
+    "transactionstatus": "PAID"
+}]
 }
 ];

@@ -36,24 +36,27 @@ and open the template in the editor.
     </head>
     <body onload="getUserData()">
         
-        <nav class="navbar navbar-default sidebar" role="navigation" style="z-index: 1;position: fixed;">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                  </button>      
+        <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top">
+            <div class="container">
+
+                <div class="navbar-header page-scroll">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand page-scroll" href="#page-top">Police Clearance</a>
                 </div>
-                <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
-                  <ul class="nav navbar-nav">
+                
+                <div class="collapse navbar-collapse" id="bs-sidebar">
+                  <ul class="nav navbar-nav hidden-md hidden-lg">
                     <li class="dropdown">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown">APPLICATION <span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-book"></span></a>
                       <ul class="dropdown-menu forAnimate" role="menu">
                           <li><a href="#" onclick="dashboardLink()">View Application</a></li>
-                        <li><a href="#" data-toggle="modal" data-target="#checkStatus" id="applyClearanceBtn">Apply for Clearance</a></li>
-                        <li><a href="#" onclick="editinfoLink()">Edit Information</a></li>
+                          <li><a href="#" onclick="applyClearanceLink()">Apply for Clearance</a></li>
+                        <li><a href="#" onclick="dashboardLink()">Edit Information</a></li>
                       </ul>
                     </li>          
                     <li ><a href="#" onclick="transactionPage()">Transaction<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-euro"></span></a></li>        
@@ -61,8 +64,36 @@ and open the template in the editor.
                     <li class="dropdown">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown">ACCOUNT <span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
                       <ul class="dropdown-menu forAnimate" role="menu">
-                        <li><a href="#">Change Password</a></li>
-                        <li><a href="index.html">Logout</a></li>
+                        <li><a href="#chpassModal" onclick="chPass()">Change Password</a></li>
+                        <li><a href="#" onclick="logoutCMD()">Logout</a></li>
+                      </ul>
+                    </li>  
+                  </ul>
+                </div>
+                
+            </div>
+
+        </nav>
+        
+        <nav class="navbar navbar-default sidebar visible-lg visible-md" role="navigation" style="z-index: 1;position: fixed;top: 70px;">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
+                  <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">APPLICATION <span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-book"></span></a>
+                      <ul class="dropdown-menu forAnimate" role="menu">
+                          <li><a href="#" onclick="dashboardLink()">View Application</a></li>
+                          <li><a href="#" onclick="applyClearanceLink()">Apply for Clearance</a></li>
+                        <li><a href="#" onclick="dashboardLink()">Edit Information</a></li>
+                      </ul>
+                    </li>          
+                    <li ><a href="#" onclick="transactionPage()">Transaction<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-euro"></span></a></li>        
+                    <li ><a href="#">Contact Us<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-comment"></span></a></li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">ACCOUNT <span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
+                      <ul class="dropdown-menu forAnimate" role="menu">
+                        <li><a href="#chpassModal" onclick="chPass()">Change Password</a></li>
+                        <li><a href="#" onclick="logoutCMD()">Logout</a></li>
                       </ul>
                     </li>  
                   </ul>
