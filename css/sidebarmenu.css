@@ -8,6 +8,7 @@ body,html{
       -o-transition: margin 200ms ease-out;
       transition: margin 200ms ease-out;
   }
+  
 
   .main{
     padding: 10px 10px 0 10px;

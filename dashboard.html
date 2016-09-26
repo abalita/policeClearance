@@ -75,6 +75,7 @@ and open the template in the editor.
                 box-shadow: none;
                 font-weight: bold;
                 font-size: 20px;
+                
             }
             .form-footer{
                 padding: 10px;
@@ -97,11 +98,15 @@ and open the template in the editor.
             }
             .watermark{
                 background: url('img/pnp.png');
-                background-size: 30%;
-                background-position-x: 50%;
-                background-position-y: 55%;
+                background-size: 100%;
                 background-repeat: no-repeat;
-                background-attachment: scroll;
+                width: 40%;
+                height: 75%;
+                top: 18%;
+                left: 31%;
+                z-index: 1;
+                opacity: 0.1;
+                position: fixed;
             }
         </style>
     </head>
@@ -175,12 +180,13 @@ and open the template in the editor.
 
         </div>
         
+        
         <section>
             <div class="container" style="background-color: #888;border: 1px solid; box-shadow: 3px 3px 40px #cccccc;margin-top: 20px;color: #fff" id="headerTitle">
                 <center><h1 id="headerText">APPLICATION</h1></center>
             </div> <!--HEADER-->
 
-            <div class="container watermark" style="border: 1px solid; box-shadow: 3px 3px 40px #cccccc;background-color: #eee;padding: 20px;margin-bottom: 20px;">
+            <div class="container" style="border: 1px solid; box-shadow: 3px 3px 40px #cccccc;background-color: #eee;padding: 20px;margin-bottom: 20px;z-index: -1">
                 <div class="row">
                     <div class="col-lg-3">
                         <center>
@@ -194,7 +200,11 @@ and open the template in the editor.
                     </div>
                 </div> <!--Profile Header-->
                 <hr class="hr1">
-                <div class="col-lg-12" style="border: 2px solid;">
+<!--                <img src="img/pnp.png" style="z-index: 1;position: fixed;">-->
+<!--                <div class="watermark"></div>-->
+<!--                <div class="watermark"></div>-->
+<!--                <img src="img/pnp.png" style="z-index: 1;margin-bottom: -200px;">-->
+                <div class="col-lg-12" style="border: 2px solid;z-index: 0;">
                     <div class="row">
                         <div class="title-border">
                             <span class="title-text">
@@ -445,6 +455,7 @@ and open the template in the editor.
                         <input type="button" name="cancel" value="CANCEL" class="btn btn-default btn-icon" style="float: right;" data-toggle="modal" data-target="#cancelEditConf">
                     </div> <!--Footer EDIT MODE-->
                 </div>
+                
             </div>
         </section>
         
@@ -920,7 +931,8 @@ and open the template in the editor.
             function applyClicked(){
                 var parameters = location.search.substring(1).split("&");
                 if(parameters[1] == "ApplyClearance"){
-                    $('#applyClearance').modal('show');
+//                    $('#applyClearance').modal('show');
+                    applyClearanceBtn();
                 }
             }
             
